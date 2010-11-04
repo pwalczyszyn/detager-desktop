@@ -1,5 +1,7 @@
 package com.detager.models
 {
+	import com.detager.models.domain.LinkEntry;
+
 	[Bindable]
 	public class ApplicationModel
 	{
@@ -13,7 +15,7 @@ package com.detager.models
 
 		public var currentState:String = STARTUP_VIEW_STATE;
 		
-		public var currentUrl:String;
+		public var currentLinkEntry:LinkEntry;
 		
 	}
 }

@@ -14,17 +14,14 @@ package com.detager.models.presentation
 		[Dispatcher]
 		public var dispatcher:IEventDispatcher;
 
-		[Inject(source="applicationModel.currentState", twoWay="true", bind="true")]
-		public var currentState:String;
+		[Inject]
+		public var applicationModel:ApplicationModel;
 		
-		[Inject(source="applicationModel.currentUrl", twoWay="true", bind="true")]
-		public var currentUrl:String;
-
 		[PostConstruct]
 		public function postConstruct():void
 		{
 			trace("AddLinkPM::postConstruct");
-			trace(currentUrl);
+			trace(applicationModel.currentLinkEntry.url);
 		}
 		
 		[PreDestroy]
@@ -36,7 +33,7 @@ package com.detager.models.presentation
 		[EventHandler(event="SwitchViewEvent.SWITCHING_VIEW")]
 		public function linkDragged_eventHandler(event:SwitchViewEvent):void
 		{
-			if (currentState == ApplicationModel.LINK_EDITOR_VIEW_STATE)
+			if (applicationModel.currentState == ApplicationModel.LINK_EDITOR_VIEW_STATE)
 			{
 				event.preventDefault();
 				
@@ -45,7 +42,7 @@ package com.detager.models.presentation
 					{
 						if (alertEvent.detail == Alert.YES)
 						{
-							currentState = event.viewState;
+							applicationModel.currentState = event.viewState;
 							dispatcher.dispatchEvent(new SwitchViewEvent(SwitchViewEvent.SWITCHED_VIEW, event.viewState));
 						}
 					}
