@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swiz:BeanProvider xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:swiz="http://swiz.swizframework.org" xmlns:controllers="com.detager.controllers.*" xmlns:models="com.detager.models.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.detager.models.presentation.AddLinkPM;
+			import com.detager.models.presentation.MainPM;
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+		<models:ApplicationModel id="applicationModel" />
+		<controllers:StartupController id="startupController" />
+		<controllers:DragController id="dragController" />		
+		
+		<swiz:Prototype type="{MainPM}" singleton="true" />
+		
+		<swiz:Prototype type="{AddLinkPM}" singleton="false" />
+		
+	</fx:Declarations>
+	
+</swiz:BeanProvider>

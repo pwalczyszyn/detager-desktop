@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:swiz="http://swiz.swizframework.org" xmlns:configs="com.detager.configs.*"
+					   creationComplete="windowedApplication_creationCompleteHandler(event)" xmlns:views="com.detager.views.*">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+
+			protected function windowedApplication_creationCompleteHandler(event:FlexEvent):void
+			{
+				nativeWindow.x = (Capabilities.screenResolutionX - width) / 2;
+				nativeWindow.y = (Capabilities.screenResolutionY - height) / 2;
+			}
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<swiz:Swiz>
+			<swiz:beanProviders>
+				<configs:Config />
+			</swiz:beanProviders>
+			<swiz:config>
+				<swiz:SwizConfig
+					eventPackages="com.detager.events"
+					viewPackages="com.detager.views"
+					/>
+			</swiz:config>
+		</swiz:Swiz>
+	</fx:Declarations>
+	
+	<views:MainView id="mainView" width="100%" height="100%" />
+	
+</s:WindowedApplication>
