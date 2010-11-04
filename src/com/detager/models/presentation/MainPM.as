@@ -1,8 +1,10 @@
 package com.detager.models.presentation
 {
 	import com.detager.events.LinkDragEvent;
+	import com.detager.events.SwitchViewEvent;
 	import com.detager.models.ApplicationModel;
 	
+	import flash.desktop.Clipboard;
 	import flash.desktop.ClipboardFormats;
 	import flash.desktop.NativeDragManager;
 	import flash.display.InteractiveObject;
@@ -22,39 +24,34 @@ package com.detager.models.presentation
 		[Inject(source="applicationModel.currentState", twoWay="true", bind="true")]
 		public var currentState:String;
 		
+		[Bindable]
+		[Inject(source="applicationModel.currentUrl", twoWay="true", bind="true")]
+		public var currentUrl:String;
+		
+		
 		public function btnHome_clickHandler():void
 		{
-			switchState(ApplicationModel.HOME_VIEW_STATE);
+			currentState = ApplicationModel.HOME_VIEW_STATE;
 		}
 		
 		public function btnAddLink_clickHandler():void
 		{
-			switchState(ApplicationModel.ADD_LINK_VIEW_STATE);
+			switchToLinkEditor(Clipboard.generalClipboard.getData(ClipboardFormats.URL_FORMAT) as String);
 		}
 
 		[EventHandler(event="LinkDragEvent.LINK_DRAGGED", properties="url")]
 		public function linkDragged_eventHandler(url:String):void
 		{
-			switchState(ApplicationModel.ADD_LINK_VIEW_STATE);
+			switchToLinkEditor(url);
 		}
 		
-		private function switchState(state:String):void
+		private function switchToLinkEditor(url:String):void
 		{
-			if (currentState == ApplicationModel.ADD_LINK_VIEW_STATE)
-			{
-				Alert.show("Discard editing current link?", "Warning", Alert.YES | Alert.NO, null, 
-					function(event:CloseEvent):void
-					{
-						if (event.detail == Alert.YES)
-							currentState = state;
-					}
-				);
-			}
-			else
-			{
-				currentState = state;
-			}
+			currentUrl = url;
 			
+			var event:SwitchViewEvent = new SwitchViewEvent(SwitchViewEvent.SWITCHING_VIEW, ApplicationModel.LINK_EDITOR_VIEW_STATE);
+			if (dispatcher.dispatchEvent(event))
+				currentState = ApplicationModel.LINK_EDITOR_VIEW_STATE;
 		}
 	}
 }

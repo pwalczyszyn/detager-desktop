@@ -5,11 +5,11 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import com.detager.models.presentation.AddLinkPM;
+			import com.detager.models.presentation.LinkEditorPM;
 			
 			[Bindable]
 			[Inject]
-			public var model:AddLinkPM;
+			public var model:LinkEditorPM;
 			
 		]]>
 	</fx:Script>

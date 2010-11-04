@@ -18,7 +18,7 @@
 	<s:states>
 		<s:State name="STARTUP_VIEW_STATE" />
 		<s:State name="HOME_VIEW_STATE" />
-		<s:State name="ADD_LINK_VIEW_STATE" />
+		<s:State name="LINK_EDITOR_VIEW_STATE" />
 		<s:State name="SETTINGS_VIEW_STATE" />
 	</s:states>
 
@@ -31,6 +31,6 @@
 	
 	<views:HomeView id="homeView" top="60" bottom="5" width="100%" includeIn="HOME_VIEW_STATE" />
 	
-	<views:AddLinkView id="addLinkView" top="60" bottom="5" width="100%" includeIn="ADD_LINK_VIEW_STATE" />
+	<views:LinkEditorView id="addLinkView" top="60" bottom="5" width="100%" includeIn="LINK_EDITOR_VIEW_STATE" />
 	
 </s:Group>

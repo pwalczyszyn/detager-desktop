@@ -4,7 +4,7 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import com.detager.models.presentation.AddLinkPM;
+			import com.detager.models.presentation.LinkEditorPM;
 			import com.detager.models.presentation.MainPM;
 		]]>
 	</fx:Script>
@@ -17,7 +17,7 @@
 		
 		<swiz:Prototype type="{MainPM}" singleton="true" />
 		
-		<swiz:Prototype type="{AddLinkPM}" singleton="false" />
+		<swiz:Prototype type="{LinkEditorPM}" singleton="true" />
 		
 	</fx:Declarations>
 	
