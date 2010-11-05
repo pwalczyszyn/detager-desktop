@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swiz:BeanProvider xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:swiz="http://swiz.swizframework.org" xmlns:controllers="com.detager.controllers.*" xmlns:models="com.detager.models.*" xmlns:services="com.detager.services.*">
+		 xmlns:swiz="http://swiz.swizframework.org" xmlns:controllers="com.detager.controllers.*" xmlns:models="com.detager.models.*" xmlns:services="com.detager.services.*" xmlns:configs="com.detager.configs.*">
 	
 	<fx:Script>
 		<![CDATA[
@@ -11,11 +11,14 @@
 	
 	<fx:Declarations>
 		
+		<configs:Commands />
+		
 		<models:ApplicationModel id="applicationModel" />
 		<controllers:StartupController id="startupController" />
 		<controllers:DragController id="dragController" />		
 		
 		<services:AppDataServiceMock id="appDataService" />
+		<services:LinkEntryServiceMock id="linkEntryService" />
 		
 		<swiz:MockDelegateHelper id="mockDelegateHelper" />
 		<swiz:ServiceHelper id="serviceHelper" />

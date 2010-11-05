@@ -9,6 +9,10 @@ package com.detager.events
 		
 		public static const OPEN:String = "OPEN";
 		
+		public static const SAVE:String = "SAVE";
+		
+		public static const DELETE:String = "DELETE";
+		
 		public var linkEntry:LinkEntry;
 		
 		public function LinkEntryEvent(type:String, linkEntry:LinkEntry, bubbles:Boolean=false, cancelable:Boolean=false)

@@ -1,6 +1,8 @@
 package com.detager.models.presentation
 {
+	import com.detager.events.LinkEntryEvent;
 	import com.detager.models.domain.LinkEntry;
+	import com.detager.models.domain.Tag;
 	
 	import flash.desktop.Clipboard;
 	import flash.desktop.ClipboardFormats;
@@ -10,10 +12,12 @@ package com.detager.models.presentation
 	import flash.events.MouseEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.utils.Dictionary;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.events.CloseEvent;
+	import mx.utils.ObjectProxy;
 	import mx.utils.ObjectUtil;
 
 	public class LinkEditorPM
@@ -23,8 +27,10 @@ package com.detager.models.presentation
 
 		[Bindable]
 		public var currentLinkEntry:LinkEntry;
-		
+
 		[Bindable]
+		public var currentTagGroups:ArrayCollection;
+
 		[Inject(source="applicationModel.tagGroups")]
 		public var tagGroups:ArrayCollection;
 		
@@ -75,7 +81,15 @@ package com.detager.models.presentation
 		
 		public function btnSaveLink_clickHandler():void
 		{
-			// TODO Auto-generated method stub
+			var selectedTags:ArrayCollection = new ArrayCollection();
+			for each(var tgp:ObjectProxy in currentTagGroups)
+				for each(var tp:ObjectProxy in tgp.tags)
+					if (tp.selected)
+						selectedTags.addItem(tp.tag);
+					
+			currentLinkEntry.tags = selectedTags;
+			
+			dispatcher.dispatchEvent(new LinkEntryEvent(LinkEntryEvent.SAVE, currentLinkEntry));
 		}
 
 		public function txtUrl_changeHandler():void
@@ -89,6 +103,19 @@ package com.detager.models.presentation
 			originalLinkEntry = ObjectUtil.copy(newLinkEntry) as LinkEntry;
 			currentLinkEntry = ObjectUtil.copy(newLinkEntry) as LinkEntry;
 		
+			currentTagGroups = ObjectUtil.copy(tagGroups) as ArrayCollection;
+
+			// In case this is existing link loaded
+			var tagIds:Vector.<Number> = new Vector.<Number>();
+			for each(var tag:Tag in currentLinkEntry.tags)
+				tagIds.push(tag.id);
+			
+			if (tagIds.length > 0)
+				for each(var tgp:ObjectProxy in currentTagGroups)
+					for each(var tp:ObjectProxy in tgp.tags)
+						if (tagIds.indexOf(tp.tag.id) > -1)
+							tp.selected = true;
+			
 			if (currentLinkEntry.url)
 				loadTitle();
 		}
