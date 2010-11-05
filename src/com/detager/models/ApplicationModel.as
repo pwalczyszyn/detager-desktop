@@ -19,5 +19,6 @@ package com.detager.models
 		
 		public var tagGroups:ArrayCollection;
 		
+		public var statusBarText:String;
 	}
 }

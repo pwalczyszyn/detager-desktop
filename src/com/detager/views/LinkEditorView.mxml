@@ -22,7 +22,7 @@
 
 		<mx:Form width="100%">
 			<mx:FormItem label="Title:" width="100%">
-				<s:TextInput id="txtTitle" text="@{model.currentLinkEntry.title}" width="100%" />
+				<s:TextInput id="txtTitle" text="@{model.currentLinkEntry.title}" enabled="{model.enabledTitle}" width="100%" />
 			</mx:FormItem>
 			<mx:FormItem label="Url:" width="100%">
 				<s:TextInput id="txtUrl" text="@{model.currentLinkEntry.url}" width="100%" />

@@ -4,6 +4,8 @@ package com.detager.models.presentation
 	import com.detager.events.SwitchViewEvent;
 	import com.detager.models.ApplicationModel;
 	import com.detager.models.domain.LinkEntry;
+	
+	import mx.core.FlexGlobals;
 
 	public class MainPM
 	{
@@ -14,6 +16,12 @@ package com.detager.models.presentation
 		[Bindable]
 		[Inject(source="applicationModel.currentState", twoWay="true", bind="true")]
 		public var currentState:String;
+		
+		[Inject(source="applicationModel.statusBarText", bind="true")]
+		public function set statusBarText(value:String):void
+		{
+			FlexGlobals.topLevelApplication.statusText.text = value;
+		}
 		
 		public function btnHome_clickHandler():void
 		{

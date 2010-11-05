@@ -4,8 +4,13 @@ package com.detager.models.presentation
 	
 	import flash.desktop.Clipboard;
 	import flash.desktop.ClipboardFormats;
+	import flash.display.Loader;
+	import flash.events.Event;
 	import flash.events.IEventDispatcher;
+	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
@@ -23,6 +28,13 @@ package com.detager.models.presentation
 		[Bindable]
 		[Inject(source="applicationModel.tagGroups")]
 		public var tagGroups:ArrayCollection;
+		
+		[Bindable]
+		[Inject(source="applicationModel.statusBarText", twoWay="true", bind="true")]
+		public var statusBarText:String;
+		
+		[Bindable]
+		public var enabledTitle:Boolean = true;
 		
 		protected var originalLinkEntry:LinkEntry;
 		
@@ -71,6 +83,33 @@ package com.detager.models.presentation
 		{
 			originalLinkEntry = ObjectUtil.copy(newLinkEntry) as LinkEntry;
 			currentLinkEntry = ObjectUtil.copy(newLinkEntry) as LinkEntry;
+			
+			statusBarText = "Loading link title...";
+			enabledTitle = false;
+			
+			var loader:URLLoader = new URLLoader();
+			loader.addEventListener(Event.COMPLETE, 
+				function(event:Event):void
+				{
+					var arr:Array = String(loader.data).match(/<title>.*<\/title>/);
+					if (arr.length > 0)
+					{
+						var titleElement:String = String(arr[0]);
+						originalLinkEntry.title = titleElement.substr(7).substr(0,titleElement.length - 15);
+						currentLinkEntry.title = originalLinkEntry.title;
+						
+						statusBarText = "";
+						enabledTitle = true;
+					}
+				});
+			loader.addEventListener(IOErrorEvent.IO_ERROR,
+				function(event:IOErrorEvent):void
+				{
+					statusBarText = "";
+					enabledTitle = true;
+					trace("Failed to load title:", event.text);					
+				});
+			loader.load(new URLRequest(currentLinkEntry.url));
 		}
 		
 	}
