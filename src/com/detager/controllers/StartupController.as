@@ -42,7 +42,7 @@ package com.detager.controllers
 				var tags:ArrayCollection = new ArrayCollection();
 				for each(var t:Tag in tg.tags)
 				{
-					tags.addItem(new ObjectProxy({name:t.name, tag:t, selected:true}));
+					tags.addItem(new ObjectProxy({name:t.name, tag:t, selected:false}));
 				}
 				tagGroups.addItem(new ObjectProxy({name:tg.name, tagGroup:tg, tags:tags}));
 			}

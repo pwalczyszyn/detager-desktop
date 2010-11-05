@@ -11,20 +11,24 @@
 			[Inject]
 			[Bindable]
 			public var model:MainPM;
-			
+
 		]]>
 	</fx:Script>
 	
 	<s:states>
+		<s:State name="LOGIN_VIEW_STATE" />
 		<s:State name="STARTUP_VIEW_STATE" />
 		<s:State name="HOME_VIEW_STATE" />
 		<s:State name="LINK_EDITOR_VIEW_STATE" />
+		<s:State name="SEARCH_VIEW_STATE" />
 		<s:State name="SETTINGS_VIEW_STATE" />
 	</s:states>
 
 	<s:HGroup top="10" right="10">
-		<s:Button id="btnHome" label="Home" click="model.btnHome_clickHandler()" />
-		<s:Button id="btnAddLink" label="New Link" click="model.btnAddLink_clickHandler()" />
+		<s:Button id="btnHomeView" label="Home" click="model.btnHomeView_clickHandler()" />
+		<s:Button id="btnLinkView" label="Link View" click="model.btnLinkView_clickHandler()" />
+		<s:Button id="btnSearchView" label="Search" click="model.btnSearchView_clickHandler()" />
+		<s:Button id="btnSettingsView" label="Settings" click="model.btnSettingsView_clickHandler()" />
 	</s:HGroup>
 	
 	<mx:ProgressBar id="prgBar" label="Loading user data..." horizontalCenter="0" verticalCenter="0" includeIn="STARTUP_VIEW_STATE" indeterminate="true"/>

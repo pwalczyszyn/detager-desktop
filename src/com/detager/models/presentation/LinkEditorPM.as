@@ -4,7 +4,6 @@ package com.detager.models.presentation
 	
 	import flash.desktop.Clipboard;
 	import flash.desktop.ClipboardFormats;
-	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.events.IOErrorEvent;
@@ -41,7 +40,7 @@ package com.detager.models.presentation
 		[PostConstruct]
 		public function postConstruct():void
 		{
-			trace("AddLinkPM::postConstruct");
+			btnNewLink_clickHandler();
 		}
 		
 		[PreDestroy]
@@ -68,22 +67,34 @@ package com.detager.models.presentation
 				setCurrentLinkEntry(linkEntry);
 		}
 		
-		public function btnNewLink_clickHandler(event:MouseEvent):void
+		public function btnNewLink_clickHandler():void
 		{
 			var clipboardUrl:String = Clipboard.generalClipboard.getData(ClipboardFormats.URL_FORMAT) as String;
 			openLinkEntry(new LinkEntry(clipboardUrl));
 		}
 		
-		public function btnSaveLink_clickHandler(event:MouseEvent):void
+		public function btnSaveLink_clickHandler():void
 		{
 			// TODO Auto-generated method stub
 		}
 
+		public function txtUrl_changeHandler():void
+		{
+			if (currentLinkEntry.url)
+				loadTitle();
+		}
+		
 		protected function setCurrentLinkEntry(newLinkEntry:LinkEntry):void
 		{
 			originalLinkEntry = ObjectUtil.copy(newLinkEntry) as LinkEntry;
 			currentLinkEntry = ObjectUtil.copy(newLinkEntry) as LinkEntry;
-			
+		
+			if (currentLinkEntry.url)
+				loadTitle();
+		}
+		
+		protected function loadTitle():void
+		{
 			statusBarText = "Loading link title...";
 			enabledTitle = false;
 			
@@ -110,7 +121,7 @@ package com.detager.models.presentation
 					trace("Failed to load title:", event.text);					
 				});
 			loader.load(new URLRequest(currentLinkEntry.url));
+			
 		}
-		
 	}
 }

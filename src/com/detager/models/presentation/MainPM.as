@@ -23,16 +23,27 @@ package com.detager.models.presentation
 			FlexGlobals.topLevelApplication.statusText.text = value;
 		}
 		
-		public function btnHome_clickHandler():void
+		public function btnHomeView_clickHandler():void
 		{
 			switchViewState(ApplicationModel.HOME_VIEW_STATE);
 		}
 		
-		public function btnAddLink_clickHandler():void
+		public function btnLinkView_clickHandler():void
 		{
 			switchViewState(ApplicationModel.LINK_EDITOR_VIEW_STATE);
 		}
 
+		public function btnSearchView_clickHandler():void
+		{
+			switchViewState(ApplicationModel.SEARCH_VIEW_STATE);
+		}
+
+		public function btnSettingsView_clickHandler():void
+		{
+			switchViewState(ApplicationModel.SETTINGS_VIEW_STATE);
+		}
+
+		
 		[EventHandler(event="LinkDragEvent.LINK_DRAGGED", properties="url")]
 		public function linkDragged_eventHandler(url:String):void
 		{
