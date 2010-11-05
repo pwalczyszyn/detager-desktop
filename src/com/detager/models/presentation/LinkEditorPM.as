@@ -7,6 +7,7 @@ package com.detager.models.presentation
 	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 	
+	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.events.CloseEvent;
 	import mx.utils.ObjectUtil;
@@ -18,6 +19,10 @@ package com.detager.models.presentation
 
 		[Bindable]
 		public var currentLinkEntry:LinkEntry;
+		
+		[Bindable]
+		[Inject(source="applicationModel.tagGroups")]
+		public var tagGroups:ArrayCollection;
 		
 		protected var originalLinkEntry:LinkEntry;
 		

@@ -8,8 +8,10 @@ package com.detager.models.domain
 		
 		public var name:String;
 		
-		public function Tag()
+		public function Tag(id:Number = NaN, name:String = null)
 		{
+			this.id = id;
+			this.name = name;
 		}
 	}
 }
