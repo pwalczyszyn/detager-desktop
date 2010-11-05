@@ -10,19 +10,26 @@
 			[Bindable]
 			[Inject]
 			public var model:LinkEditorPM;
-			
+
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<mx:Form horizontalCenter="0" top="35">
-		<mx:FormItem label="title" id="txtTitle">
-			<s:TextInput/>
+	
+	<mx:Form horizontalCenter="0" left="10" right="10">
+		<mx:FormItem label="title" width="100%">
+			<s:TextInput id="txtTitle" text="@{model.currentLinkEntry.title}" width="100%" />
 		</mx:FormItem>
-		<mx:FormItem label="url">
-			<s:TextInput id="txtUrl"/>
+		<mx:FormItem label="url" width="100%">
+			<s:TextInput id="txtUrl" text="@{model.currentLinkEntry.url}" width="100%" />
 		</mx:FormItem>
 	</mx:Form>
+	
+	<s:HGroup right="5" bottom="5">
+		<s:Button id="btnNewLink" label="New Link" click="model.btnNewLink_clickHandler(event)" />
+		<s:Button id="btnSaveLink" label="Save" click="model.btnSaveLink_clickHandler(event)" />
+	</s:HGroup>
+	
 </s:Group>

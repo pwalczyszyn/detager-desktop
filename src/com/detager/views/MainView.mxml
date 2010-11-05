@@ -24,13 +24,13 @@
 
 	<s:HGroup top="5" right="5">
 		<s:Button id="btnHome" label="Home" click="model.btnHome_clickHandler()" />
-		<s:Button id="btnAddLink" label="Add Link" click="model.btnAddLink_clickHandler()" />
+		<s:Button id="btnAddLink" label="New Link" click="model.btnAddLink_clickHandler()" />
 	</s:HGroup>
 	
 	<mx:ProgressBar id="prgBar" label="Loading user data..." horizontalCenter="0" verticalCenter="0" includeIn="STARTUP_VIEW_STATE" indeterminate="true"/>
 	
 	<views:HomeView id="homeView" top="60" bottom="5" width="100%" includeIn="HOME_VIEW_STATE" />
 	
-	<views:LinkEditorView id="addLinkView" top="60" bottom="5" width="100%" includeIn="LINK_EDITOR_VIEW_STATE" />
+	<views:LinkEditorView id="addLinkView" top="60" bottom="0" width="100%" includeIn="LINK_EDITOR_VIEW_STATE" />
 	
 </s:Group>

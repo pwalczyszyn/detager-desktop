@@ -14,8 +14,5 @@ package com.detager.models
 		public static const SETTINGS_VIEW_STATE:String = "SETTINGS_VIEW_STATE";
 
 		public var currentState:String = STARTUP_VIEW_STATE;
-		
-		public var currentLinkEntry:LinkEntry;
-		
 	}
 }
