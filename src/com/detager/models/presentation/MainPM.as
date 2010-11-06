@@ -17,6 +17,9 @@ package com.detager.models.presentation
 		[Inject(source="applicationModel.currentState", twoWay="true", bind="true")]
 		public var currentState:String;
 		
+		[Bindable]
+		public var showMessage:Boolean = false;
+		
 		[Inject(source="applicationModel.statusBarText", bind="true")]
 		public function set statusBarText(value:String):void
 		{

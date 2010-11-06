@@ -17,7 +17,6 @@
 	
 	<s:states>
 		<s:State name="LOGIN_VIEW_STATE" />
-		<s:State name="STARTUP_VIEW_STATE" />
 		<s:State name="HOME_VIEW_STATE" />
 		<s:State name="LINK_EDITOR_VIEW_STATE" />
 		<s:State name="SEARCH_VIEW_STATE" />
@@ -31,10 +30,10 @@
 		<s:Button id="btnSettingsView" label="Settings" click="model.btnSettingsView_clickHandler()" />
 	</s:HGroup>
 	
-	<mx:ProgressBar id="prgBar" label="Loading user data..." horizontalCenter="0" verticalCenter="0" includeIn="STARTUP_VIEW_STATE" indeterminate="true"/>
-	
-	<views:HomeView id="homeView" top="30" bottom="5" width="100%" includeIn="HOME_VIEW_STATE" />
-	
-	<views:LinkEditorView id="addLinkView" top="30" bottom="0" width="100%" includeIn="LINK_EDITOR_VIEW_STATE" />
+	<s:VGroup top="35" width="100%" bottom="5" horizontalAlign="center" gap="5">
+		<views:MessageView id="messageView" visible="{model.showMessage}" includeInLayout="{model.showMessage}" />
+		<views:HomeView id="homeView" height="100%" width="100%" includeIn="HOME_VIEW_STATE" includeInLayout="{currentState == 'HOME_VIEW_STATE'}" />
+		<views:LinkEditorView id="addLinkView" height="100%" width="100%" includeIn="LINK_EDITOR_VIEW_STATE" includeInLayout="{currentState == 'LINK_EDITOR_VIEW_STATE'}" />
+	</s:VGroup>
 	
 </s:Group>

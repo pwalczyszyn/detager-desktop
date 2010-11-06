@@ -20,7 +20,7 @@
 	
 	<s:VGroup top="0" bottom="40" left="10" right="10">
 
-		<mx:Form width="100%">
+		<mx:Form width="100%" paddingTop="0">
 			<mx:FormItem label="Title:" width="100%">
 				<s:TextInput id="txtTitle" text="@{model.currentLinkEntry.title}" enabled="{model.enabledTitle}" width="100%" />
 			</mx:FormItem>
@@ -53,7 +53,7 @@
 		
 	</s:VGroup>
 	
-	<s:HGroup right="10" bottom="10">
+	<s:HGroup right="10" bottom="5">
 		<s:Button id="btnNewLink" label="New Link" click="model.btnNewLink_clickHandler()" />
 		<s:Button id="btnSaveLink" label="Save" click="model.btnSaveLink_clickHandler()" />
 	</s:HGroup>
