@@ -1,7 +1,7 @@
 package com.detager.models.domain
 {
 	[Bindable]
-	[RemoteClass]
+	[RemoteClass(alias="Tag")]
 	public class Tag
 	{
 		public var id:Number;

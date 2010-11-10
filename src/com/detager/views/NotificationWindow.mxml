@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="340" height="120"
+		  type="{NativeWindowType.LIGHTWEIGHT}"
+		  creationComplete="window_initializeHandler(event)"
+		  skinClass="com.detager.skins.NotificationWindowSkin"
+		  systemChrome="{NativeWindowSystemChrome.NONE}"
+		  closeEffect="{fadeOut}"
+		  transparent="true"
+		  alwaysInFront="true">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.detager.models.domain.Bookmark;
+			import com.detager.models.domain.Tag;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import spark.components.Button;
+			
+			protected var queue:Vector.<ArrayCollection> = new Vector.<ArrayCollection>();
+			
+			[Bindable]
+			protected var currentBookmark:Bookmark;
+			
+			[Bindable]
+			protected var tags:String;
+			
+			[Bindable]
+			protected var newBookmarks:ArrayCollection;
+			
+			[SkinPart(required="true")]
+			public var closeButton:Button;
+			
+			protected var timer:Timer = new Timer(4000, 1);
+			
+			protected function window_initializeHandler(event:FlexEvent):void
+			{
+				var mainScreen:Screen = Screen.mainScreen;
+				var screenBounds:Rectangle = mainScreen.visibleBounds;
+				
+				nativeWindow.x = Capabilities.screenResolutionX - this.width;
+				
+				if(NativeApplication.supportsDockIcon)
+				{
+					nativeWindow.y = screenBounds.top;
+				}
+				else
+				{
+					nativeWindow.y = screenBounds.bottom - this.height;
+				}
+				
+				closeButton.addEventListener(MouseEvent.CLICK, function():void { close(); });
+				
+				timer.addEventListener(TimerEvent.TIMER, checkQueue);
+				
+				shiftQueue();
+			}
+			
+			protected function checkQueue(event:TimerEvent = null):void
+			{
+				if (queue.length == 0)
+					close();
+				else
+					shiftQueue();
+			}
+			
+			protected function shiftQueue():void
+			{
+				if (queue.length > 0)
+				{
+					newBookmarks = queue.shift();
+					currentBookmark = newBookmarks[0];
+					
+					tags = "";
+					for each(var tag:Tag in currentBookmark.tags)
+						tags += tag.name + ", ";
+
+					timer.reset();
+					timer.start();					
+				}
+			}
+			
+			public function addBookmarks(bookmarks:ArrayCollection):void
+			{
+				queue.push(bookmarks);
+			}
+			
+			public function addAllBookmarks(bookmarksQueue:Vector.<ArrayCollection>):void
+			{
+				for each(var bookmarks:ArrayCollection in bookmarksQueue)
+				{
+					queue.push(bookmarks);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Fade id="fadeOut" alphaFrom="1.0" alphaTo="0.0" duration="800" />	
+	</fx:Declarations>
+	
+	<s:BitmapImage left="10" top="10" smooth="true" source="@Embed(source='/assets/thumbnail-small.png')"/>
+	
+	<s:VGroup left="140" top="15" right="10" fontSize="12" gap="7">
+		<s:RichText id="txtTitle" width="100%" color="#FFFFFF" fontSize="14" text="{currentBookmark.title}"
+					textDecoration="underline" useHandCursor="true" buttonMode="true" />
+		<s:Label text="Desc: {currentBookmark.description != null ? currentBookmark.description : ''}" width="100%" maxDisplayedLines="2" />
+		<s:Label text="Tags: {tags != null ? tags : ''}" left="0" right="5" maxDisplayedLines="3" />
+	</s:VGroup>
+
+	<s:RichText left="10" bottom="15" fontSize="14" text="New bookmarks #: {newBookmarks.length}" color="#FFFFFF"/>
+	
+</s:Window>

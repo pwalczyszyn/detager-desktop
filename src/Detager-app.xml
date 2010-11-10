@@ -29,10 +29,10 @@
 
 	<!-- Description, displayed in the AIR application installer.
 	     May have multiple values for each language. See samples or xsd schema file. Optional. -->
-	<!-- <description></description> -->
+	<description>Social bookmarking and tagging desktop application.</description>
 
 	<!-- Copyright information. Optional -->
-	<!-- <copyright></copyright> -->
+	<copyright>Piotr Walczyszyn (riaspace.com)</copyright>
 
 	<!-- Publisher ID. Used if you're updating an application created prior to 1.5.3 -->
 	<!-- <publisherID></publisherID> -->

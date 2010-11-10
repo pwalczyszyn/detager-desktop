@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
+		fc:resizable="false">
+	<fx:Metadata>[HostComponent("spark.components.ToggleButton")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+		<s:State name="upAndSelected"/>
+		<s:State name="overAndSelected"/>
+		<s:State name="downAndSelected"/>
+		<s:State name="disabledAndSelected"/>
+	</s:states>
+	<s:Path x="1.737" y="2.08" width="16.5" height="15.443"
+			data="M 23.56 8.58 L 17.68 14.31 19.07 22.41 11.80 18.58 4.53 22.41 5.92 14.31 0.04 8.58 8.16 7.40 11.80 0.03 15.44 7.40 Z ">
+		<s:stroke>
+			<s:SolidColorStroke caps="none" color="#999999" joints="miter" miterLimit="4"
+								weight="2"/>
+		</s:stroke>
+		<s:fill.over>
+			<s:SolidColor color="#FDFF00"/>
+		</s:fill.over>
+		<s:fill.upAndSelected>
+			<s:SolidColor color="#FDFF00"/>
+		</s:fill.upAndSelected>
+		<s:fill.down>
+			<s:SolidColor color="#FDFF00"/>
+		</s:fill.down>
+		<s:fill.disabled>
+			<s:SolidColor color="#CCCCCC"/>
+		</s:fill.disabled>
+		<s:fill.overAndSelected>
+			<s:SolidColor color="#FDFF00"/>
+		</s:fill.overAndSelected>
+		<s:fill.downAndSelected>
+			<s:SolidColor color="#FDFF00"/>
+		</s:fill.downAndSelected>
+	</s:Path>
+</s:Skin>

@@ -2,11 +2,16 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"
-		 currentState="{model.currentState}" xmlns:views="com.detager.views.*">
+		 currentState="{model.currentState}" xmlns:views="com.detager.views.*"
+		 preinitialize="messageView.visible = false;messageView.includeInLayout = false;">
 	
 	<fx:Script>
 		<![CDATA[
 			import com.detager.models.presentation.MainPM;
+			import com.detager.skins.BookmarkButton;
+			import com.detager.skins.HomeButton;
+			import com.detager.skins.SearchButton;
+			import com.detager.skins.SettingsButton;
 
 			[Inject]
 			[Bindable]
@@ -15,25 +20,38 @@
 		]]>
 	</fx:Script>
 	
+	<fx:Declarations>
+		<s:Fade id="messageShowEffect" alphaFrom="0" alphaTo="1" duration="800" effectStart="messageView.includeInLayout = true" />
+		<s:Fade id="messageHideEffect" alphaFrom="1" alphaTo="0" duration="800" effectEnd="messageView.includeInLayout = false" />
+	</fx:Declarations>
+	
 	<s:states>
-		<s:State name="LOGIN_VIEW_STATE" />
+		<s:State name="SIGNIN_VIEW_STATE" />
 		<s:State name="HOME_VIEW_STATE" />
 		<s:State name="LINK_EDITOR_VIEW_STATE" />
 		<s:State name="SEARCH_VIEW_STATE" />
 		<s:State name="SETTINGS_VIEW_STATE" />
 	</s:states>
 
-	<s:HGroup top="10" right="10">
-		<s:Button id="btnHomeView" label="Home" click="model.btnHomeView_clickHandler()" />
-		<s:Button id="btnLinkView" label="Link View" click="model.btnLinkView_clickHandler()" />
-		<s:Button id="btnSearchView" label="Search" click="model.btnSearchView_clickHandler()" />
-		<s:Button id="btnSettingsView" label="Settings" click="model.btnSettingsView_clickHandler()" />
+	<s:BitmapImage source="@Embed(source='/assets/logo.png')" left="10" top="10" />
+	
+	<s:HGroup top="15" right="20" gap="25" excludeFrom="SIGNIN_VIEW_STATE">
+		<s:Button id="btnHomeView" label="Home" click="model.btnHomeView_clickHandler()" skinClass="com.detager.skins.HomeButton" />
+		<s:Button id="btnLinkView" label="Link View" click="model.btnLinkView_clickHandler()" skinClass="com.detager.skins.BookmarkButton" />
+		<s:Button id="btnSearchView" label="Search" click="model.btnSearchView_clickHandler()" skinClass="com.detager.skins.SearchButton" />
+		<s:Button id="btnSettingsView" label="Settings" click="model.btnSettingsView_clickHandler()" skinClass="com.detager.skins.SettingsButton" />
 	</s:HGroup>
 	
-	<s:VGroup top="35" width="100%" bottom="5" horizontalAlign="center" gap="5">
-		<views:MessageView id="messageView" visible="{model.showMessage}" includeInLayout="{model.showMessage}" />
+	<s:VGroup top="40" width="100%" bottom="5" horizontalAlign="center" gap="5">
+
+		<views:MessageView id="messageView" close="model.messageView_closeHandler()" visible="{model.showMessage}" showEffect="{messageShowEffect}" hideEffect="{messageHideEffect}"/>
+		
+		<views:SignInView id="signInView" height="100%" width="100%" includeIn="SIGNIN_VIEW_STATE" includeInLayout="{currentState == 'SIGNIN_VIEW_STATE'}" />
 		<views:HomeView id="homeView" height="100%" width="100%" includeIn="HOME_VIEW_STATE" includeInLayout="{currentState == 'HOME_VIEW_STATE'}" />
-		<views:LinkEditorView id="addLinkView" height="100%" width="100%" includeIn="LINK_EDITOR_VIEW_STATE" includeInLayout="{currentState == 'LINK_EDITOR_VIEW_STATE'}" />
+		<views:BookmarkEditorView id="addLinkView" height="100%" width="100%" includeIn="LINK_EDITOR_VIEW_STATE" includeInLayout="{currentState == 'LINK_EDITOR_VIEW_STATE'}" />
+		<views:SearchView id="searchView" height="100%" width="100%" includeIn="SEARCH_VIEW_STATE" includeInLayout="{currentState == 'SEARCH_VIEW_STATE'}" />
+		<views:SettingsView id="settingsView" height="100%" width="100%" includeIn="SETTINGS_VIEW_STATE" includeInLayout="{currentState == 'SETTINGS_VIEW_STATE'}" />
+		
 	</s:VGroup>
 	
 </s:Group>

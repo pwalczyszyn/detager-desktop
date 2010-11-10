@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <swiz:BeanProvider xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:swiz="http://swiz.swizframework.org" xmlns:controllers="com.detager.controllers.*" xmlns:models="com.detager.models.*" xmlns:services="com.detager.services.*" xmlns:configs="com.detager.configs.*">
+		 xmlns:swiz="http://swiz.swizframework.org" xmlns:controllers="com.detager.controllers.*" xmlns:models="com.detager.models.*" xmlns:services="com.detager.services.*" xmlns:configs="com.detager.configs.*" xmlns:presentation="com.detager.models.presentation.*" xmlns:storage="org.swizframework.storage.*" xmlns:s="library://ns.adobe.com/flex/spark">
 	
 	<fx:Script>
 		<![CDATA[
-			import com.detager.models.presentation.LinkEditorPM;
+			import com.detager.models.presentation.BookmarkEditorPM;
+			import com.detager.models.presentation.HomePM;
 			import com.detager.models.presentation.MainPM;
+			import com.detager.models.presentation.SearchPM;
+			import com.detager.models.presentation.SettingsPM;
+			import com.detager.models.presentation.SignInPM;
 		]]>
 	</fx:Script>
 	
@@ -18,15 +22,32 @@
 		<controllers:DragController id="dragController" />		
 		
 		<services:AppDataServiceMock id="appDataService" />
-		<services:LinkEntryServiceMock id="linkEntryService" />
+		<services:BookmarkService id="bookmarkService" />
+		
+		<services:UserService id="userService" />
+		
+		<models:LocalConfig id="localConfig" />
 		
 		<swiz:MockDelegateHelper id="mockDelegateHelper" />
 		<swiz:ServiceHelper id="serviceHelper" />
 		
+		<presentation:MessagePM id="messagePM" />
+		<presentation:NotificationWindowPM id="notificationWindowPM" />
+		
 		<swiz:Prototype type="{MainPM}" singleton="true" />
 		
-		<swiz:Prototype type="{LinkEditorPM}" singleton="true" />
+		<swiz:Prototype type="{BookmarkEditorPM}" singleton="true" />
 		
+		<swiz:Prototype type="{SignInPM}" singleton="false" />
+		
+		<swiz:Prototype type="{HomePM}" singleton="true" />
+		
+		<swiz:Prototype type="{SearchPM}" singleton="true" />
+		
+		<swiz:Prototype type="{SettingsPM}" singleton="true" />
+		
+		<storage:EncryptedLocalStorageBean id="encryptedLocalStorage" />
+		<storage:SharedObjectBean id="localStorage" name="LOCAL_STORAGE" />
 	</fx:Declarations>
 	
 </swiz:BeanProvider>

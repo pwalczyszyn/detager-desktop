@@ -1,9 +1,10 @@
 package com.detager.models.presentation
 {
-	import com.detager.events.LinkEntryEvent;
+	import com.detager.events.BookmarkEvent;
+	import com.detager.events.SettingsEvent;
 	import com.detager.events.SwitchViewEvent;
 	import com.detager.models.ApplicationModel;
-	import com.detager.models.domain.LinkEntry;
+	import com.detager.models.domain.Bookmark;
 	
 	import mx.core.FlexGlobals;
 
@@ -44,8 +45,26 @@ package com.detager.models.presentation
 		public function btnSettingsView_clickHandler():void
 		{
 			switchViewState(ApplicationModel.SETTINGS_VIEW_STATE);
+			if (currentState == ApplicationModel.SETTINGS_VIEW_STATE)
+				dispatcher.dispatchEvent(new SettingsEvent(SettingsEvent.OPEN));
 		}
 
+		public function messageView_closeHandler():void
+		{
+			showMessage = false;
+		}
+
+		[EventHandler(event="MessageEvent.*")]
+		public function messageEvent_openHandler():void
+		{
+			showMessage = true;
+		}
+
+		[EventHandler(event="UserEvent.SIGNEDOUT")]
+		public function signOut_eventHandler():void
+		{
+			currentState = ApplicationModel.SIGNIN_VIEW_STATE;
+		}
 		
 		[EventHandler(event="LinkDragEvent.LINK_DRAGGED", properties="url")]
 		public function linkDragged_eventHandler(url:String):void
@@ -54,21 +73,24 @@ package com.detager.models.presentation
 				if (!switchViewState(ApplicationModel.LINK_EDITOR_VIEW_STATE))
 					return;
 			
-			dispatcher.dispatchEvent(new LinkEntryEvent(LinkEntryEvent.OPEN, new LinkEntry(url)));
+			dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.OPEN, new Bookmark(url)));
+		}
+		
+		[EventHandler(event="SwitchViewEvent.SWITCH_VIEW")]
+		public function switchViewState_eventHandler(event:SwitchViewEvent):void
+		{
+			if (!switchViewState(event.viewState))
+				event.preventDefault();
 		}
 		
 		protected function switchViewState(toViewState:String):Boolean
 		{
-			var event:SwitchViewEvent = new SwitchViewEvent(SwitchViewEvent.SWITCHING_VIEW, ApplicationModel.LINK_EDITOR_VIEW_STATE);
-			if (dispatcher.dispatchEvent(event))
-			{
-				currentState = ApplicationModel.LINK_EDITOR_VIEW_STATE;
-				return true;
-			}
-			else
-			{
+			var event:SwitchViewEvent = new SwitchViewEvent(SwitchViewEvent.SWITCHING_VIEW, toViewState);
+			if (!dispatcher.dispatchEvent(event))
 				return false;
-			}
+
+			currentState = toViewState;
+			return true;
 		}
 	}
 }

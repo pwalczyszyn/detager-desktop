@@ -5,6 +5,8 @@ package com.detager.events
 	public class SwitchViewEvent extends Event
 	{
 		
+		public static const SWITCH_VIEW:String = "SWITCH_VIEW";
+		
 		public static const SWITCHING_VIEW:String = "SWITCHING_VIEW";
 		
 		public static const SWITCHED_VIEW:String = "SWITCHED_VIEW";

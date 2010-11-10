@@ -1,13 +1,13 @@
 package com.detager.models
 {
-	import com.detager.models.domain.LinkEntry;
+	import com.detager.models.domain.User;
 	
 	import mx.collections.ArrayCollection;
 
 	[Bindable]
 	public class ApplicationModel
 	{
-		public static const LOGIN_VIEW_STATE:String = "LOGIN_VIEW_STATE";
+		public static const SIGNIN_VIEW_STATE:String = "SIGNIN_VIEW_STATE";
 		
 		public static const HOME_VIEW_STATE:String = "HOME_VIEW_STATE";
 		
@@ -17,10 +17,15 @@ package com.detager.models
 		
 		public static const SETTINGS_VIEW_STATE:String = "SETTINGS_VIEW_STATE";
 
-		public var currentState:String = LOGIN_VIEW_STATE;
+		public var currentState:String = SIGNIN_VIEW_STATE;
+		
+		public var currentUser:User;
 		
 		public var tagGroups:ArrayCollection;
 		
 		public var statusBarText:String;
+		
+		public var latestBookmarks:ArrayCollection = new ArrayCollection();
+		
 	}
 }

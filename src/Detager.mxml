@@ -2,8 +2,11 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:swiz="http://swiz.swizframework.org" xmlns:configs="com.detager.configs.*"
-					   creationComplete="windowedApplication_creationCompleteHandler(event)" xmlns:views="com.detager.views.*">
-
+					   creationComplete="windowedApplication_creationCompleteHandler(event)" xmlns:views="com.detager.views.*" backgroundColor="#2D3034"
+					   preloader="com.detager.components.Preloader">
+	
+	<fx:Style source="Detager.css"/>
+	
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
@@ -12,6 +15,11 @@
 			{
 				nativeWindow.x = (Capabilities.screenResolutionX - width) / 2;
 				nativeWindow.y = (Capabilities.screenResolutionY - height) / 2;
+				
+				nativeWindow.addEventListener(Event.CLOSE, function(event:Event):void
+				{
+					nativeApplication.exit();
+				});
 			}
 
 		]]>
@@ -21,6 +29,7 @@
 		<swiz:Swiz>
 			<swiz:beanProviders>
 				<configs:Config />
+				<configs:LocalServiceConfig />
 			</swiz:beanProviders>
 			<swiz:config>
 				<swiz:SwizConfig

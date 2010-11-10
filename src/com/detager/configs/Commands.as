@@ -1,7 +1,15 @@
 package com.detager.configs
 {
-	import com.detager.commands.SaveLinkEntryCmd;
-	import com.detager.events.LinkEntryEvent;
+	import com.detager.commands.LoadAppDataCmd;
+	import com.detager.commands.LoadLatestBookmarksCmd;
+	import com.detager.commands.SaveBookmarkCmd;
+	import com.detager.commands.SearchBookmarksCmd;
+	import com.detager.commands.SignInUserCmd;
+	import com.detager.commands.SignOutUserCmd;
+	import com.detager.events.BookmarkEvent;
+	import com.detager.events.BookmarksSearchEvent;
+	import com.detager.events.BookmarksSyncEvent;
+	import com.detager.events.UserEvent;
 	
 	import org.swizframework.utils.commands.CommandMap;
 	
@@ -9,7 +17,12 @@ package com.detager.configs
 	{
 		override protected function mapCommands():void
 		{
-			mapCommand(LinkEntryEvent.SAVE, SaveLinkEntryCmd, LinkEntryEvent, false);
+			mapCommand(BookmarkEvent.SAVE, SaveBookmarkCmd, BookmarkEvent, false);
+			mapCommand(UserEvent.SIGNIN, SignInUserCmd, UserEvent, false);
+			mapCommand(UserEvent.SIGNEDIN, LoadAppDataCmd, UserEvent, false);
+			mapCommand(BookmarksSyncEvent.SYNC_LATEST, LoadLatestBookmarksCmd, BookmarksSyncEvent, false);
+			mapCommand(BookmarksSearchEvent.SEARCH_BOOKMARKS, SearchBookmarksCmd, BookmarksSearchEvent, false);
+			mapCommand(UserEvent.SIGNOUT, SignOutUserCmd, UserEvent, false);
 		}	
 	}
 }

@@ -1,0 +1,31 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+global
+{
+	content-background-color: #32363A;
+	chrome-color: #2D3034;
+	symbol-color: #F2F2F2;
+	color: #cdcdcd;
+	selection-color: #fbd13f;
+	font-family: PT_Sans;
+	font-lookup: "embeddedCFF";
+}
+
+@font-face
+{
+	fontFamily: PT_Sans;
+	src: url("/assets/fonts/PT_Sans.ttf");
+	font-weight: normal;
+	embedAsCff: true;
+}
+
+@font-face
+{
+	fontFamily: PT_Sans_Bold;
+	src: url("/assets/fonts/PT_Sans_Bold.ttf");
+	font-weight: bold;
+	embedAsCFF: true;
+}

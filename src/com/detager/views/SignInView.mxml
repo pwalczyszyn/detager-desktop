@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.detager.models.presentation.SignInPM;
+			
+			[Inject]
+			[Bindable]
+			public var model:SignInPM;
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<mx:StringValidator id="usernameValidator" minLength="3" maxLength="20" required="true" source="{txtUsername}" property="text" />
+		<mx:StringValidator id="passwordValidator" required="true" source="{txtPassword}" property="text" />
+	</fx:Declarations>
+	
+	<mx:Form defaultButton="{btnSignIn}" verticalCenter="-50" horizontalCenter="0">
+		<mx:FormHeading label="Sign In" />
+		<mx:FormItem label="Username or email:" required="true">
+			<s:TextInput id="txtUsername" text="@{model.user.username}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Password:" required="true">
+			<s:TextInput id="txtPassword" text="@{model.user.password}" displayAsPassword="true"/>
+		</mx:FormItem>
+		<mx:FormItem>
+			<s:CheckBox id="chkRememberMe" label="Remember me" selected="@{model.rememberMe}" />
+		</mx:FormItem>
+		<mx:FormItem>
+			<s:Button id="btnSignIn" label="Sign In" click="model.btnSignIn_clickHandler([usernameValidator, passwordValidator])" />
+		</mx:FormItem>
+	</mx:Form>
+	
+</s:Group>

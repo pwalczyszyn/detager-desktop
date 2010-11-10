@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:ai="http://ns.adobe.com/ai/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns:flm="http://ns.adobe.com/flame/2008">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<s:Group ai:objID="60cf44e0" x="0" y="0">
+		<s:Group d:id="3" flm:knockout="false" ai:objID="6c100810" x="0" y="0">
+			<s:Path data="M 0.336 1.927 C 2.132 3.722 3.927 5.518 5.723 7.314 C 6.75 8.341 8.341 6.75 7.314 5.723 C 5.518 3.927 3.722 2.132 1.927 0.336 C 0.9 -0.691 -0.691 0.9 0.336 1.927 L 0.336 1.927 Z" height="9.563" ai:objID="6c1058d0" width="9.563" winding="nonZero" x="-0.005" y="-0.006" id="path2">
+				<s:fill>
+					<s:SolidColor color="0x666666" color.down="#999999"/>
+				</s:fill>
+			</s:Path>
+		</s:Group>
+		<s:Group d:id="4" flm:knockout="false" ai:objID="60cf8690" x="0" y="0">
+			<s:Path data="M 1.927 7.314 C 3.722 5.518 5.518 3.722 7.314 1.927 C 8.341 0.9 6.75 -0.691 5.723 0.336 C 3.927 2.132 2.132 3.927 0.336 5.723 C -0.691 6.75 0.9 8.341 1.927 7.314 L 1.927 7.314 Z" height="9.563" ai:objID="6c106990" width="9.563" winding="nonZero" x="-0.005" y="-0.006" id="path1">
+				<s:fill>
+					<s:SolidColor color="0x666666" color.down="#999999"/>
+				</s:fill>
+			</s:Path>
+		</s:Group>
+	</s:Group>
+</s:Skin>

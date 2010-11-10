@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:s="library://ns.adobe.com/flex/spark"
+				xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
+				xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+				autoDrawBackground="false" fc:resizable="false"
+				width="100%" height="115">
+
+	<fx:Metadata>
+		[Event(name="open",type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.detager.models.domain.Bookmark;
+			import com.detager.models.domain.Tag;
+			import com.detager.skins.AddButton;
+			
+			[Bindable]
+			private var tags:String;
+			
+			[Bindable]
+			private var bookmark:Bookmark;
+			
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				
+				if (value)
+				{
+					tags = "";
+					bookmark = Bookmark(value);
+					for each(var tag:Tag in bookmark.tags)
+					{
+						tags += tag.name + ", ";
+					}
+				}
+			}
+
+			protected function txtTitle_clickHandler(event:MouseEvent):void
+			{
+				navigateToURL(new URLRequest(bookmark.url));
+			}
+
+		]]>
+	</fx:Script>
+	
+	
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="hovered"/>
+		<s:State name="selected"/>
+	</s:states>
+	
+	<s:Rect top="0" right="0" bottom="5" left="0" radiusX="5">
+		<s:stroke>
+			<s:SolidColorStroke caps="none" color="#999999" joints="miter" miterLimit="4" weight="2"/>
+		</s:stroke>
+	</s:Rect>
+	
+	<s:BitmapImage left="10" top="10" smooth="true" source="@Embed(source='/assets/thumbnail-small.png')"/>
+	
+	<s:RichText id="txtTitle" left="140" top="10" color="#FFFFFF" fontSize="14" text="{bookmark.title}"
+				click="txtTitle_clickHandler(event)" toolTip="{bookmark.url}"
+				textDecoration="underline" useHandCursor="true" buttonMode="true" />
+	
+	<s:VGroup left="140" top="30" right="10" fontSize="12" gap="7">
+		<s:Label text="Desc: {bookmark.description != null ? bookmark.description : ''}" width="100%" maxDisplayedLines="2" />
+		<s:Label text="Tags: {tags != null ? tags : ''}" width="100%" maxDisplayedLines="3" />
+	</s:VGroup>
+
+	<s:HGroup fontSize="10" left="10" bottom="10" right="25" gap="3">
+		<s:Label text="by:" />
+		<s:Label text="{bookmark.ownerUsername}," textDecoration="underline" useHandCursor="true" buttonMode="true" />
+		<s:Label text="{bookmark.entryDate.toDateString()} {bookmark.entryDate.toTimeString()}" />
+		<s:Label text="Others bookmarking #:" includeInLayout="{bookmark.otherTaggers.length > 0}" visible="{bookmark.otherTaggers.length > 0}" />
+		<s:Label text="{bookmark.otherTaggers.length}" includeInLayout="{bookmark.otherTaggers.length > 0}" visible="{bookmark.otherTaggers.length > 0}" />
+	</s:HGroup>
+	
+	<s:Button right="10" bottom="14" skinClass="com.detager.skins.AddButton" visible="{!bookmark.isOwner}"
+					click="dispatchEvent(new Event(Event.OPEN, true, true))"/>
+
+	<s:Button right="10" bottom="14" skinClass="com.detager.skins.AddButton" visible="{bookmark.isOwner}"
+			  click="dispatchEvent(new Event(Event.OPEN, true, true))"/>
+
+</s:ItemRenderer>

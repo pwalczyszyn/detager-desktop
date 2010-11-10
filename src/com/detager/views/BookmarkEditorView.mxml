@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.detager.models.presentation.BookmarkEditorPM;
+			
+			[Bindable]
+			[Inject]
+			public var model:BookmarkEditorPM;
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:VGroup top="5" bottom="40" left="10" right="10">
+
+		<mx:Form width="100%" paddingTop="5" paddingBottom="5" paddingLeft="0" paddingRight="0">
+			<mx:FormItem label="Url:" width="100%">
+				<s:TextInput id="txtUrl" focusOut="model.txtUrl_changeHandler()" text="@{model.currentBookmark.url}" width="100%" />
+			</mx:FormItem>
+			<mx:FormItem label="Title:" width="100%">
+				<s:TextInput id="txtTitle" text="@{model.currentBookmark.title}" enabled="{model.enabledTitle}" width="100%" />
+			</mx:FormItem>
+			<mx:FormItem label="Description:" width="100%">
+				<s:TextArea id="txtDescription" text="@{model.currentBookmark.description}" width="100%" height="100" />
+			</mx:FormItem>
+			<mx:FormItem paddingTop="10" label="Owner:" width="100%" visible="{model.currentBookmark.ownerUsername != null}" includeInLayout="{model.currentBookmark.ownerUsername != null}">
+				<s:Label text="{model.currentBookmark.ownerUsername}" />
+			</mx:FormItem>
+		</mx:Form>
+		
+		<mx:Accordion width="100%" height="100%">
+			<mx:Repeater id="rpt" dataProvider="{model.currentTagGroups}">
+				<mx:Box label="{rpt.currentItem.name}" width="100%" paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="5">
+					<s:DataGroup dataProvider="{rpt.currentItem.tags}" width="100%">
+						<s:layout>
+							<s:TileLayout horizontalAlign="center" horizontalGap="10" />
+						</s:layout>
+						<s:itemRenderer>
+							<fx:Component>
+								<s:ItemRenderer autoDrawBackground="false" width="100%">
+									<s:CheckBox label="{data.name}" selected="@{data.selected}" />
+								</s:ItemRenderer>
+							</fx:Component>
+						</s:itemRenderer>
+					</s:DataGroup>
+				</mx:Box>
+			</mx:Repeater>
+		</mx:Accordion>
+		
+	</s:VGroup>
+	
+	<s:CheckBox id="chkPublicAccess" selected="@{model.currentBookmark.publicAccess}" label="Publically visible?" left="10" bottom="5" />
+	
+	<s:HGroup right="10" bottom="5">
+		<s:Button id="btnNewLink" label="New" click="model.btnNewLink_clickHandler()" />
+		<s:Button id="btnSaveLink" label="{model.currentBookmark.isOwner ? 'Update' : 'Add'}" click="model.btnSaveLink_clickHandler()" />
+	</s:HGroup>
+	
+</s:Group>

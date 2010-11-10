@@ -3,7 +3,7 @@ package com.detager.models.domain
 	import mx.collections.ArrayCollection;
 
 	[Bindable]
-	[RemoteClass]
+	[RemoteClass(alias="TagGroup")]
 	public class TagGroup
 	{
 		public var id:Number;

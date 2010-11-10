@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.detager.models.presentation.SettingsPM;
+			
+			[Inject]
+			[Bindable]
+			public var model:SettingsPM;
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<mx:Form verticalCenter="0" horizontalCenter="0">
+		<mx:FormItem>
+			<s:CheckBox label="Open at Login" selected="@{model.startAtLogin}" />
+		</mx:FormItem>
+		<mx:FormItem>
+			<s:CheckBox label="Show notifications window" selected="@{model.currentSettings.showNotifications}" />
+		</mx:FormItem>
+		<mx:FormItem>
+			<s:CheckBox label="Play notifications sound" selected="@{model.currentSettings.playNotificationsSound}" />
+		</mx:FormItem>
+	</mx:Form>
+	
+	<s:Button id="btnSignOut" label="Sign Out" left="10" bottom="5" click="model.btnSignOut_clickHandler()" />
+	
+	<s:HGroup right="10" bottom="5">
+		<s:Button id="btnSave" label="Save" click="model.btnSave_clickHandler()" />
+		<s:Button id="btnCancel" label="Cancel" click="model.btnCancel_clickHandler()" />
+	</s:HGroup>
+
+</s:Group>
