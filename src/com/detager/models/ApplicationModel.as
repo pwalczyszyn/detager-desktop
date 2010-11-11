@@ -24,8 +24,5 @@ package com.detager.models
 		public var tagGroups:ArrayCollection;
 		
 		public var statusBarText:String;
-		
-		public var latestBookmarks:ArrayCollection = new ArrayCollection();
-		
 	}
 }

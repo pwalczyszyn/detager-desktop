@@ -26,7 +26,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<components:BookmarksList id="lstRecent" dataProvider="{model.latestBookmarks}"
+	<components:BookmarksList id="lstRecent" dataProvider="{model.bookmarks}"
 			open="lstRecent_openHandler(event)"
 			top="10" right="10" bottom="10" left="10"/>
 	

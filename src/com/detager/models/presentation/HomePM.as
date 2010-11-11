@@ -20,13 +20,14 @@ package com.detager.models.presentation
 		public var dispatcher:IEventDispatcher; 
 		
 		[Bindable]
-		[Inject(source="applicationModel.latestBookmarks", bind="true")]
-		public var latestBookmarks:ArrayCollection;
+		public var bookmarks:ArrayCollection = new ArrayCollection();
 		
 		[Inject]
 		public var localConfig:LocalConfig;
 		
 		private var timer:Timer;
+		
+		private var lastSyncTime:Date;
 		
 		[PostConstruct]
 		public function postConstruct():void
@@ -56,6 +57,12 @@ package com.detager.models.presentation
 			timer = null;
 		}
 		
+		[EventHandler(event="BookmarksSyncEvent.LATEST_SYNCED", properties="newBookmarks")]
+		public function bookmarksSynced_eventHandler(newBookmarks:ArrayCollection):void
+		{
+			bookmarks.addAllAt(newBookmarks, 0);
+		}
+		
 		private function onTimer(event:TimerEvent):void
 		{
 			loadLatestBookmarks();
@@ -69,7 +76,8 @@ package com.detager.models.presentation
 		
 		protected function loadLatestBookmarks():void
 		{
-			dispatcher.dispatchEvent(new BookmarksSyncEvent(BookmarksSyncEvent.SYNC_LATEST));
+			dispatcher.dispatchEvent(new BookmarksSyncEvent(BookmarksSyncEvent.SYNC_LATEST, lastSyncTime));
+			lastSyncTime = new Date();
 		}
 		
 	}

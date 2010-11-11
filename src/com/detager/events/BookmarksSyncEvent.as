@@ -13,15 +13,18 @@ package com.detager.events
 		
 		public var newBookmarks:ArrayCollection;
 		
-		public function BookmarksSyncEvent(type:String, newBookmarks:ArrayCollection = null, bubbles:Boolean=false, cancelable:Boolean=false)
+		public var since:Date;
+		
+		public function BookmarksSyncEvent(type:String, since:Date = null, newBookmarks:ArrayCollection = null, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);
+			this.since = since;
 			this.newBookmarks = newBookmarks;
 		}
 		
 		override public function clone():Event
 		{
-			return new BookmarksSyncEvent(type, newBookmarks, bubbles, cancelable);
+			return new BookmarksSyncEvent(type, since, newBookmarks, bubbles, cancelable);
 		}
 	}
 }
