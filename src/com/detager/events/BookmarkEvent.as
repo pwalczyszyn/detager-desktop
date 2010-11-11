@@ -9,25 +9,29 @@ package com.detager.events
 		
 		public static const OPEN:String = "OPEN";
 		
-		public static const SAVE:String = "SAVE";
+		public static const CREATE:String = "CREATE";
 		
-		public static const SAVED:String = "SAVED";
+		public static const CREATED:String = "CREATED";
+
+		public static const UPDATE:String = "UPDATE";
 		
+		public static const UPDATED:String = "UPDATED";
+
 		public static const DELETE:String = "DELETE";
 		
 		public static const DELETED:String = "DELETED";
 		
-		public var linkEntry:Bookmark;
+		public var bookmark:Bookmark;
 		
-		public function BookmarkEvent(type:String, linkEntry:Bookmark, bubbles:Boolean=false, cancelable:Boolean=false)
+		public function BookmarkEvent(type:String, bookmark:Bookmark, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);
-			this.linkEntry = linkEntry;
+			this.bookmark = bookmark;
 		}
 		
 		override public function clone():Event
 		{
-			return new BookmarkEvent(type, linkEntry, bubbles, cancelable);
+			return new BookmarkEvent(type, bookmark, bubbles, cancelable);
 		}
 	}
 }

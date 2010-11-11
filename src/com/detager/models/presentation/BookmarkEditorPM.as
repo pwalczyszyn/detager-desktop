@@ -54,28 +54,28 @@ package com.detager.models.presentation
 			trace("AddLinkPM::preDestroy");
 		}
 		
-		[EventHandler(event="BookmarkEvent.OPEN", properties="linkEntry")]
-		public function openLinkEntry(linkEntry:Bookmark):void
+		[EventHandler(event="BookmarkEvent.OPEN", properties="bookmark")]
+		public function openBookmark(bookmark:Bookmark):void
 		{
-			// Checking if linkEntry was updated
+			// Checking if bookmark was updated
 			if (ObjectUtil.compare(originalBookmark, currentBookmark) != 0)
 			{
 				Alert.show("Discard current changes?", "Question", Alert.YES | Alert.NO, null, 
 					function(event:CloseEvent):void
 					{
 						if (event.detail == Alert.YES)
-							setCurrentLinkEntry(linkEntry);
+							setCurrentBookmark(bookmark);
 					}
 				);
 			}
 			else
-				setCurrentLinkEntry(linkEntry);
+				setCurrentBookmark(bookmark);
 		}
 		
 		public function btnNewLink_clickHandler():void
 		{
 //			var clipboardUrl:String = Clipboard.generalClipboard.getData(ClipboardFormats.URL_FORMAT) as String;
-			openLinkEntry(new Bookmark());
+			openBookmark(new Bookmark());
 		}
 		
 		public function btnSaveLink_clickHandler():void
@@ -95,7 +95,7 @@ package com.detager.models.presentation
 					
 			currentBookmark.tags = selectedTags;
 			
-			dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.SAVE, currentBookmark));
+			dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.CREATE, currentBookmark));
 		}
 
 		public function txtUrl_changeHandler():void
@@ -104,10 +104,10 @@ package com.detager.models.presentation
 				loadTitle();
 		}
 		
-		protected function setCurrentLinkEntry(newLinkEntry:Bookmark):void
+		protected function setCurrentBookmark(newBookmark:Bookmark):void
 		{
-			originalBookmark = ObjectUtil.copy(newLinkEntry) as Bookmark;
-			currentBookmark = ObjectUtil.copy(newLinkEntry) as Bookmark;
+			originalBookmark = ObjectUtil.copy(newBookmark) as Bookmark;
+			currentBookmark = ObjectUtil.copy(newBookmark) as Bookmark;
 		
 			currentTagGroups = ObjectUtil.copy(tagGroups) as ArrayCollection;
 

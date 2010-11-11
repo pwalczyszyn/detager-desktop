@@ -2,7 +2,7 @@ package com.detager.configs
 {
 	import com.detager.commands.LoadAppDataCmd;
 	import com.detager.commands.LoadLatestBookmarksCmd;
-	import com.detager.commands.SaveBookmarkCmd;
+	import com.detager.commands.CreateBookmarkCmd;
 	import com.detager.commands.SearchBookmarksCmd;
 	import com.detager.commands.SignInUserCmd;
 	import com.detager.commands.SignOutUserCmd;
@@ -17,7 +17,7 @@ package com.detager.configs
 	{
 		override protected function mapCommands():void
 		{
-			mapCommand(BookmarkEvent.SAVE, SaveBookmarkCmd, BookmarkEvent, false);
+			mapCommand(BookmarkEvent.CREATE, CreateBookmarkCmd, BookmarkEvent, false);
 			mapCommand(UserEvent.SIGNIN, SignInUserCmd, UserEvent, false);
 			mapCommand(UserEvent.SIGNEDIN, LoadAppDataCmd, UserEvent, false);
 			mapCommand(BookmarksSyncEvent.SYNC_LATEST, LoadLatestBookmarksCmd, BookmarksSyncEvent, false);

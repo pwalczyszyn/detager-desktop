@@ -8,11 +8,11 @@ package com.detager.services
 	public interface IBookmarkService
 	{
 		
-		function save(linkEntry:Bookmark):AsyncToken;
+		function create(bookmark:Bookmark):AsyncToken;
 
-		function open(linkEntryId:Number):AsyncToken;
+		function update(bookmark:Bookmark):AsyncToken;
 
-		function remove(linkEntryId:Number):AsyncToken;
+		function remove(bookmarkId:Number):AsyncToken;
 		
 		function loadLatest(since:Date):AsyncToken;
 		
