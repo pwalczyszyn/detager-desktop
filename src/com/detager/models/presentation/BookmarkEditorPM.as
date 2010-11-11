@@ -77,7 +77,19 @@ package com.detager.models.presentation
 //			var clipboardUrl:String = Clipboard.generalClipboard.getData(ClipboardFormats.URL_FORMAT) as String;
 			openBookmark(new Bookmark());
 		}
-		
+
+		public function btnDelete_clickHandler():void
+		{
+			Alert.show("Do you want to delete this bookmark?", "Question", Alert.YES | Alert.NO, null, 
+				function(event:CloseEvent):void
+				{
+					if (event.detail == Alert.YES)
+						dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.DELETE, currentBookmark));
+				}
+			);
+
+		}
+
 		public function btnSaveLink_clickHandler():void
 		{
 			if (!currentBookmark.isOwner)

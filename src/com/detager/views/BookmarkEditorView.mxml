@@ -6,6 +6,8 @@
 	<fx:Script>
 		<![CDATA[
 			import com.detager.models.presentation.BookmarkEditorPM;
+			import com.detager.skins.DeleteButtonSkin;
+			import com.detager.skins.NewButtonSkin;
 			
 			[Bindable]
 			[Inject]
@@ -21,8 +23,12 @@
 	<s:VGroup top="5" bottom="40" left="10" right="10">
 
 		<mx:Form width="100%" paddingTop="5" paddingBottom="5" paddingLeft="0" paddingRight="0">
-			<mx:FormItem label="Url:" width="100%">
+			<mx:FormItem label="Url:" width="100%" direction="horizontal">
 				<s:TextInput id="txtUrl" focusOut="model.txtUrl_changeHandler()" text="@{model.currentBookmark.url}" width="100%" />
+				<s:Button id="btnNewLink" toolTip="New Bookmark" click="model.btnNewLink_clickHandler()" skinClass="com.detager.skins.NewButtonSkin"/>
+				<s:Button id="btnDelete" toolTip="Delete Bookmark" visible="{model.currentBookmark.isOwner}" 
+						  includeInLayout="{model.currentBookmark.isOwner}" click="model.btnDelete_clickHandler()" 
+						  skinClass="com.detager.skins.DeleteButtonSkin"/>
 			</mx:FormItem>
 			<mx:FormItem label="Title:" width="100%">
 				<s:TextInput id="txtTitle" text="@{model.currentBookmark.title}" enabled="{model.enabledTitle}" width="100%" />
@@ -60,7 +66,6 @@
 	
 	<s:HGroup right="10" bottom="5">
 		<s:Button id="btnSaveLink" label="{model.currentBookmark.isOwner ? 'Update' : 'Save'}" click="model.btnSaveLink_clickHandler()" />
-		<s:Button id="btnNewLink" label="New" click="model.btnNewLink_clickHandler()" />
 	</s:HGroup>
 	
 </s:Group>

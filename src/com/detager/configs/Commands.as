@@ -1,6 +1,7 @@
 package com.detager.configs
 {
 	import com.detager.commands.CreateBookmarkCmd;
+	import com.detager.commands.DeleteBookmarkCmd;
 	import com.detager.commands.LoadAppDataCmd;
 	import com.detager.commands.LoadLatestBookmarksCmd;
 	import com.detager.commands.SearchBookmarksCmd;
@@ -20,6 +21,7 @@ package com.detager.configs
 		{
 			mapCommand(BookmarkEvent.CREATE, CreateBookmarkCmd, BookmarkEvent, false);
 			mapCommand(BookmarkEvent.UPDATE, UpdateBookmarkCmd, BookmarkEvent, false);
+			mapCommand(BookmarkEvent.DELETE, DeleteBookmarkCmd, BookmarkEvent, false);
 			
 			mapCommand(UserEvent.SIGNIN, SignInUserCmd, UserEvent, false);
 			mapCommand(UserEvent.SIGNEDIN, LoadAppDataCmd, UserEvent, false);
