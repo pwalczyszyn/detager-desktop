@@ -7,6 +7,10 @@
 		<![CDATA[
 			import com.detager.models.presentation.SignInPM;
 			
+			import flash.net.navigateToURL;
+			
+			import org.osmf.utils.URL;
+			
 			[Inject]
 			[Bindable]
 			public var model:SignInPM;
@@ -21,7 +25,7 @@
 	
 	<mx:Form defaultButton="{btnSignIn}" verticalCenter="-50" horizontalCenter="0">
 		<mx:FormHeading label="Sign In" />
-		<mx:FormItem label="Username or email:" required="true">
+		<mx:FormItem label="Username:" required="true">
 			<s:TextInput id="txtUsername" text="@{model.user.username}"/>
 		</mx:FormItem>
 		<mx:FormItem label="Password:" required="true">
@@ -35,4 +39,14 @@
 		</mx:FormItem>
 	</mx:Form>
 	
+	<s:VGroup horizontalCenter="0" bottom="150" horizontalAlign="center" gap="12">
+		
+		<s:Label text="Click here to register" buttonMode="true" useHandCursor="true" click="navigateToURL(new URLRequest('http://detager.com/register'))"
+				 textDecoration="underline" fontSize="14" />
+		
+		<s:Label text="Forgot password?" buttonMode="true" useHandCursor="true" click="navigateToURL(new URLRequest('http://detager.com/forgotpassword'))"
+				 textDecoration="underline" />
+		
+	</s:VGroup>
+
 </s:Group>
