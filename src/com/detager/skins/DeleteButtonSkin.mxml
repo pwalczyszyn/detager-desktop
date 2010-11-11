@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
+		width="20" height="20" fc:resizable="true">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<s:Path x="5.461" y="4.914"
+			data="M 7.548 0 L 4.906 2.642 L 2.265 0.001 L 0 2.265 L 2.643 4.906 L 0 7.548 L 2.265 9.812 L 4.906 7.17 L 7.548 9.812 L 9.812 7.548 L 7.17 4.906 L 9.812 2.265 L 7.548 0 Z"
+			winding="nonZero">
+		<s:fill>
+			<s:SolidColor color="#E6E6E6"
+						  color.down="#999999"
+						  color.over="#999999"/>
+		</s:fill>
+	</s:Path>
+	<s:Path x="0.367" y="-0.18"
+			data="M 17.071 2.929 C 15.118 0.977 12.559 0 10 0 C 7.441 0 4.881 0.977 2.929 2.929 C -0.976 6.834 -0.976 13.166 2.929 17.071 C 4.881 19.023 7.441 20 10 20 C 12.559 20 15.118 19.023 17.071 17.071 C 20.977 13.166 20.977 6.834 17.071 2.929 Z M 15.966 15.966 C 14.372 17.56 12.254 18.438 10 18.438 C 7.746 18.438 5.627 17.56 4.033 15.966 C 2.441 14.373 1.563 12.254 1.563 10 C 1.563 7.746 2.441 5.627 4.033 4.034 C 5.627 2.44 7.746 1.563 10 1.563 C 12.254 1.563 14.372 2.44 15.966 4.034 L 15.966 4.034 C 17.56 5.627 18.438 7.746 18.438 10 C 18.438 12.254 17.56 14.373 15.966 15.966 Z"
+			winding="nonZero">
+		<s:fill>
+			<s:SolidColor color="#E6E6E6"
+						  color.down="#999999"
+						  color.over="#999999"/>
+		</s:fill>
+	</s:Path>
+	<s:Rect x="0" y="0" width="20" height="20">
+		<s:fill>
+			<s:SolidColor alpha="0" />
+		</s:fill>
+	</s:Rect>
+</s:Skin>
