@@ -35,21 +35,24 @@ package com.detager.models.presentation
 		[EventHandler(event="BookmarksSyncEvent.LATEST_SYNCED", properties="newBookmarks")]
 		public function handleNewFeeds(newBookmarks:ArrayCollection):void
 		{
-			if (localConfig.showNotifications)
+			if (newBookmarks.length > 0)
 			{
-				if (!idle)
+				if (localConfig.showNotifications)
 				{
-					createWindow();
-					window.addBookmarks(newBookmarks);
+					if (!idle)
+					{
+						createWindow();
+						window.addBookmarks(newBookmarks);
+					}
+					else
+					{
+						idleQueue.push(newBookmarks);
+					}
 				}
-				else
+				else if (localConfig.playNotificationsSound)
 				{
-					idleQueue.push(newBookmarks);
+					sound.play();
 				}
-			}
-			else if (localConfig.playNotificationsSound)
-			{
-				sound.play();
 			}
 		}
 		
