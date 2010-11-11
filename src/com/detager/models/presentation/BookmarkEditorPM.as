@@ -95,7 +95,10 @@ package com.detager.models.presentation
 					
 			currentBookmark.tags = selectedTags;
 			
-			dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.CREATE, currentBookmark));
+			if (currentBookmark.id)
+				dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.UPDATE, currentBookmark));
+			else
+				dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.CREATE, currentBookmark));
 		}
 
 		public function txtUrl_changeHandler():void

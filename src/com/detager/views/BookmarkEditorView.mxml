@@ -59,8 +59,8 @@
 	<s:CheckBox id="chkPublicAccess" selected="@{model.currentBookmark.publicAccess}" label="Publically visible?" left="10" bottom="5" />
 	
 	<s:HGroup right="10" bottom="5">
+		<s:Button id="btnSaveLink" label="{model.currentBookmark.isOwner ? 'Update' : 'Save'}" click="model.btnSaveLink_clickHandler()" />
 		<s:Button id="btnNewLink" label="New" click="model.btnNewLink_clickHandler()" />
-		<s:Button id="btnSaveLink" label="{model.currentBookmark.isOwner ? 'Update' : 'Add'}" click="model.btnSaveLink_clickHandler()" />
 	</s:HGroup>
 	
 </s:Group>
