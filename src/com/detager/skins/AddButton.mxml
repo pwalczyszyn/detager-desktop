@@ -14,18 +14,18 @@
 			data="M 6.938 0 L 3.736 0 L 3.736 3.736 L 0 3.736 L 0 6.938 L 3.736 6.938 L 3.736 10.673 L 6.938 10.673 L 6.938 6.938 L 10.674 6.938 L 10.674 3.736 L 6.938 3.736 L 6.938 0 Z"
 			winding="nonZero">
 		<s:fill>
-			<s:SolidColor color="#E6E6E6"
-						  color.down="#999999"
-						  color.over="#999999"/>
+			<s:SolidColor color="#999999"
+						  color.down="#595959"
+						  color.over="#595959"/>
 		</s:fill>
 	</s:Path>
 	<s:Path x="-0.278" y="-0.476"
 			data="M 10 0 C 4.478 0 0 4.477 0 10 C 0 15.523 4.478 20 10 20 C 15.523 20 20 15.523 20 10 C 20 4.477 15.523 0 10 0 Z M 10 18.438 C 5.348 18.438 1.563 14.652 1.563 10 C 1.563 5.347 5.348 1.563 10 1.563 C 14.652 1.563 18.438 5.347 18.438 10 C 18.438 14.652 14.652 18.438 10 18.438 Z"
 			winding="nonZero">
 		<s:fill>
-			<s:SolidColor color="#E6E6E6"
-						  color.down="#999999"
-						  color.over="#999999"/>
+			<s:SolidColor color="#999999"
+						  color.down="#595959"
+						  color.over="#595959"/>
 		</s:fill>
 	</s:Path>
 	<s:Rect x="0" y="0" width="20" height="20">

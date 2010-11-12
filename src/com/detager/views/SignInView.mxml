@@ -6,6 +6,7 @@
 	<fx:Script>
 		<![CDATA[
 			import com.detager.models.presentation.SignInPM;
+			import com.detager.skins.DefaultButtonSkin;
 			
 			import flash.net.navigateToURL;
 			
@@ -39,7 +40,7 @@
 		</mx:FormItem>
 	</mx:Form>
 	
-	<s:VGroup horizontalCenter="0" bottom="150" horizontalAlign="center" gap="12">
+	<s:VGroup horizontalCenter="0" bottom="100" horizontalAlign="center" gap="12">
 		
 		<s:Label text="Click here to register" buttonMode="true" useHandCursor="true" click="navigateToURL(new URLRequest('http://detager.com/register'))"
 				 textDecoration="underline" fontSize="14" />

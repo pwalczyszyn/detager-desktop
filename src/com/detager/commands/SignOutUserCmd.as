@@ -38,6 +38,8 @@ package com.detager.commands
 		
 		public function execute():void
 		{
+			userService.signOut();
+			
 			applicationModel.currentUser = null;
 			encryptedLocalStorage.setObject("rememberMeUser", null);
 			

@@ -14,9 +14,9 @@
 			data="M 12.258 0 L 0 0 L 0 20 L 17.811 20 L 17.811 5.464 L 12.258 0 Z M 11.83 2.648 L 14.914 5.683 L 11.83 5.683 L 11.83 2.648 Z M 15.623 17.812 L 2.188 17.812 L 2.188 2.188 L 10.58 2.188 L 10.58 6.932 L 15.623 6.932 L 15.623 17.812 Z"
 			winding="nonZero">
 		<s:fill>
-			<s:SolidColor color="#E6E6E6"
-						  color.down="#999999"
-						  color.over="#999999"/>
+			<s:SolidColor color="#999999"
+						  color.down="#595959"
+						  color.over="#595959"/>
 		</s:fill>
 	</s:Path>
 	<s:Rect x="0" y="0" width="20" height="20">

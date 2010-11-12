@@ -5,5 +5,7 @@ package com.detager.services
 	public interface IUserService
 	{
 		function signIn(username:String,password:String):AsyncToken;
+		
+		function signOut():void;
 	}
 }

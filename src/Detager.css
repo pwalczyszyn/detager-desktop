@@ -5,27 +5,33 @@
 
 global
 {
-	content-background-color: #32363A;
-	chrome-color: #2D3034;
-	symbol-color: #F2F2F2;
-	color: #cdcdcd;
+	content-background-color: #ebebeb;
+	chrome-color: #acacac;
+	symbol-color: #1c232e;
+	color: #1c232e;
 	selection-color: #fbd13f;
-	font-family: PT_Sans;
+	font-family: Sansation;
+	font-size: 12px;
 	font-lookup: "embeddedCFF";
+}
+
+s|WindowedApplication
+{
+	background-color: #ebebeb;
 }
 
 @font-face
 {
-	fontFamily: PT_Sans;
-	src: url("/assets/fonts/PT_Sans.ttf");
+	fontFamily: Sansation;
+	src: url("/assets/fonts/Sansation_Regular.ttf");
 	font-weight: normal;
 	embedAsCff: true;
 }
 
 @font-face
 {
-	fontFamily: PT_Sans_Bold;
-	src: url("/assets/fonts/PT_Sans_Bold.ttf");
+	fontFamily: Sansation_Bold;
+	src: url("/assets/fonts/Sansation_Bold.ttf");
 	font-weight: bold;
 	embedAsCFF: true;
 }

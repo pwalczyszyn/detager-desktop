@@ -2,9 +2,10 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:swiz="http://swiz.swizframework.org" xmlns:configs="com.detager.configs.*"
-					   creationComplete="windowedApplication_creationCompleteHandler(event)" xmlns:views="com.detager.views.*" backgroundColor="#2D3034"
+					   creationComplete="windowedApplication_creationCompleteHandler(event)" xmlns:views="com.detager.views.*"
+					   showStatusBar="false"
 					   preloader="com.detager.components.Preloader">
-	<!-- 556e86 -->
+
 	<fx:Style source="Detager.css"/>
 	
 	<fx:Script>

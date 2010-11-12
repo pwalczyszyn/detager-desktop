@@ -38,7 +38,7 @@
 	<mx:Image source="@Embed(source='/assets/logo.png')" left="10" top="10" buttonMode="true" useHandCursor="true"
 			  click="navigateToURL(new URLRequest('http://detager.com'))"/>
 	
-	<s:HGroup top="15" right="20" gap="25" excludeFrom="SIGNIN_VIEW_STATE">
+	<s:HGroup top="10" right="10" gap="8" excludeFrom="SIGNIN_VIEW_STATE">
 		<s:Button id="btnHomeView" label="Home" click="model.btnHomeView_clickHandler()" skinClass="com.detager.skins.HomeButton" />
 		<s:Button id="btnLinkView" label="Link View" click="model.btnLinkView_clickHandler()" skinClass="com.detager.skins.BookmarkButton" />
 		<s:Button id="btnSearchView" label="Search" click="model.btnSearchView_clickHandler()" skinClass="com.detager.skins.SearchButton" />
