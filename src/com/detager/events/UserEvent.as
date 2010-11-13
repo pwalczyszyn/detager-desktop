@@ -9,6 +9,8 @@ package com.detager.events
 		
 		public static const SIGNIN:String = "SIGNIN";
 		
+		public static const SIGNIN_FAILED:String = "SIGNIN_FAILED";
+		
 		public static const SIGNEDIN:String = "SIGNEDIN";
 		
 		public static const SIGNOUT:String = "SIGNOUT";
@@ -18,6 +20,11 @@ package com.detager.events
 		public var user:User;
 		
 		public var rememberMe:Boolean;
+		
+		/**
+		 * Possible values: WRONG_CREDENTIALS or CONNECTION_FAULT
+		 */
+		public var signInFailReason:String;
 		
 		public function UserEvent(type:String, user:User, rememberMe:Boolean = false, bubbles:Boolean=false, cancelable:Boolean=false)
 		{

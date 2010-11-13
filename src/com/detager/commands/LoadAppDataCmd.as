@@ -1,9 +1,12 @@
 package com.detager.commands
 {
+	import com.detager.events.SwitchViewEvent;
 	import com.detager.models.ApplicationModel;
 	import com.detager.models.domain.Tag;
 	import com.detager.models.domain.TagGroup;
 	import com.detager.services.IAppDataService;
+	
+	import flash.events.IEventDispatcher;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
@@ -16,6 +19,9 @@ package com.detager.commands
 	
 	public class LoadAppDataCmd implements ICommand
 	{
+
+		[Dispatcher]
+		public var dispatcher:IEventDispatcher;
 
 		[Inject]
 		public var applicationModel:ApplicationModel;
@@ -45,7 +51,8 @@ package com.detager.commands
 			}
 			
 			applicationModel.tagGroups = tagGroups;
-			applicationModel.currentState = ApplicationModel.HOME_VIEW_STATE;
+			
+			dispatcher.dispatchEvent(new SwitchViewEvent(SwitchViewEvent.SWITCH_VIEW, ApplicationModel.HOME_VIEW_STATE));
 		}
 		
 		private function fault(event:FaultEvent):void

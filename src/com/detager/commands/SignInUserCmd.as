@@ -62,14 +62,20 @@ package com.detager.commands
 			}
 			else
 			{
-				dispatcher.dispatchEvent(new MessageEvent(MessageEvent.INFO_MESSAGE, "Wrong username or password!"));
+				var userEvent:UserEvent = new UserEvent(UserEvent.SIGNIN_FAILED, user);
+				userEvent.signInFailReason = "WRONG_CREDENTIALS";
+				dispatcher.dispatchEvent(userEvent);
 			}
 		}
 		
 		private function fault(event:FaultEvent):void
 		{
 			trace(event.fault.faultDetail);
-			dispatcher.dispatchEvent(new MessageEvent(MessageEvent.ERROR_MESSAGE, "Error signing in!"));
+			
+			var userEvent:UserEvent = new UserEvent(UserEvent.SIGNIN_FAILED, user);
+			userEvent.signInFailReason = "CONNECTION_FAULT";
+			
+			dispatcher.dispatchEvent(userEvent);
 		}
 	}
 }
