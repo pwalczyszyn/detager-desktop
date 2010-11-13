@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
+		fc:resizable="false">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+	
+	<s:Path x="4.186" y="3.988"
+			data="M 5.896 0 L 3.176 0 L 3.176 3.175 L 0 3.175 L 0 5.897 L 3.176 5.897 L 3.176 9.072 L 5.896 9.072 L 5.896 5.897 L 9.072 5.897 L 9.072 3.175 L 5.896 3.175 L 5.896 0 Z"
+			winding="nonZero">
+		<s:fill>
+			<s:SolidColor color="#999999"
+						  color.down="#595959"
+						  color.over="#595959"/>
+		</s:fill>
+	</s:Path>
+	<s:Path x="0.222" y="0.024"
+			data="M 8.5 0 C 3.806 0 0 3.806 0 8.5 C 0 13.194 3.806 17 8.5 17 C 13.194 17 17 13.194 17 8.5 C 17 3.806 13.194 0 8.5 0 Z M 8.5 15.672 C 4.546 15.672 1.328 12.455 1.328 8.5 C 1.328 4.545 4.546 1.328 8.5 1.328 C 12.454 1.328 15.672 4.545 15.672 8.5 C 15.672 12.455 12.454 15.672 8.5 15.672 Z"
+			winding="nonZero">
+		<s:fill>
+			<s:SolidColor color="#999999"
+						  color.down="#595959"
+						  color.over="#595959"/>
+		</s:fill>
+	</s:Path>
+
+	<s:Rect x="0" y="0" width="17" height="17">
+		<s:fill>
+			<s:SolidColor alpha="0" />
+		</s:fill>
+	</s:Rect>
+</s:Skin>

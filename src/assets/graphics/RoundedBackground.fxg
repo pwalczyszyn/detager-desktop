@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Graphic xmlns="http://ns.adobe.com/fxg/2008" version="2.0">
+
+	<Rect radiusX="4" width="30" height="16">
+		<fill>
+			<SolidColor color="#E6E6E6"/>
+		</fill>
+	</Rect>
+
+</Graphic>
