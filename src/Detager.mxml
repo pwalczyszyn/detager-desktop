@@ -10,6 +10,10 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.detager.configs.Config;
+			import com.detager.configs.LocalServiceConfig;
+			import com.detager.configs.RemoteServiceConfig;
+			
 			import mx.events.FlexEvent;
 
 			protected function windowedApplication_creationCompleteHandler(event:FlexEvent):void
@@ -27,11 +31,7 @@
 	</fx:Script>
 	
 	<fx:Declarations>
-		<swiz:Swiz>
-			<swiz:beanProviders>
-				<configs:Config />
-				<configs:LocalServiceConfig />
-			</swiz:beanProviders>
+		<swiz:Swiz beanProviders="{[Config, Capabilities.isDebugger ? LocalServiceConfig : RemoteServiceConfig]}">
 			<swiz:config>
 				<swiz:SwizConfig
 					eventPackages="com.detager.events"

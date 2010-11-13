@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swiz:BeanProvider 
+	xmlns:swiz="http://swiz.swizframework.org"
+	xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<fx:Declarations>
+		
+		<s:ChannelSet id="channels">
+			<s:AMFChannel url="http://detager.com/services/amf" />
+		</s:ChannelSet>
+		
+		<s:RemoteObject id="usersService" destination="zend" source="UsersService" channelSet="{channels}" />
+		
+		<s:RemoteObject id="bookmarksService" destination="zend" source="BookmarksService" channelSet="{channels}" />
+		
+	</fx:Declarations>
+	
+</swiz:BeanProvider>
