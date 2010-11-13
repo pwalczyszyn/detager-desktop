@@ -16,6 +16,8 @@
 	<fx:Declarations>
 		
 		<configs:Commands />
+
+		<controllers:UpdateController id="updateController" />
 		
 		<models:ApplicationModel id="applicationModel" />
 		<controllers:StartupController id="startupController" />
