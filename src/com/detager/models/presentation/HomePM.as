@@ -63,6 +63,40 @@ package com.detager.models.presentation
 			bookmarks.addAllAt(newBookmarks, 0);
 		}
 		
+		[EventHandler(event="BookmarkEvent.UPDATED")]
+		[EventHandler(event="BookmarkEvent.CREATED")]
+		[EventHandler(event="BookmarkEvent.DELETED")]
+		public function bookmark_eventHandler(event:BookmarkEvent):void
+		{
+			switch(event.type)
+			{
+				case BookmarkEvent.UPDATED:
+					for (var i:int = 0; i < bookmarks.length; i++)
+					{
+						if (Bookmark(bookmarks.getItemAt(i)).id == event.bookmark.id)
+						{
+							bookmarks.removeItemAt(i);
+							bookmarks.addItemAt(event.bookmark, i);
+							break;
+						}
+					}
+					break;
+				case BookmarkEvent.DELETED:
+					for (var j:int = 0; j < bookmarks.length; j++)
+					{
+						if (Bookmark(bookmarks.getItemAt(j)).id == event.bookmark.id)
+						{
+							bookmarks.removeItemAt(j);
+							break;
+						}
+					}
+					break;
+				case BookmarkEvent.CREATED:
+					loadLatestBookmarks();
+					break;
+			}
+		}
+		
 		private function onTimer(event:TimerEvent):void
 		{
 			loadLatestBookmarks();

@@ -1,6 +1,9 @@
 package com.detager.models.presentation
 {
 	import com.detager.events.BookmarkEvent;
+	import com.detager.events.MessageEvent;
+	import com.detager.events.SwitchViewEvent;
+	import com.detager.models.ApplicationModel;
 	import com.detager.models.domain.Bookmark;
 	import com.detager.models.domain.Tag;
 	import com.detager.models.domain.User;
@@ -16,6 +19,7 @@ package com.detager.models.presentation
 	import mx.events.CloseEvent;
 	import mx.utils.ObjectProxy;
 	import mx.utils.ObjectUtil;
+	import mx.validators.Validator;
 
 	public class BookmarkEditorPM
 	{
@@ -24,6 +28,7 @@ package com.detager.models.presentation
 
 		[Bindable]
 		public var currentBookmark:Bookmark;
+		
 		protected var originalBookmark:Bookmark;
 
 		[Bindable]
@@ -45,7 +50,7 @@ package com.detager.models.presentation
 		[PostConstruct]
 		public function postConstruct():void
 		{
-			btnNewLink_clickHandler();
+			createNewBookmark();
 		}
 		
 		[PreDestroy]
@@ -72,10 +77,33 @@ package com.detager.models.presentation
 				setCurrentBookmark(bookmark);
 		}
 		
+		[EventHandler(event="BookmarkEvent.UPDATED", properties="bookmark")]
+		public function bookmark_updatedHandler(bookmark:Bookmark):void
+		{
+			dispatcher.dispatchEvent(new SwitchViewEvent(SwitchViewEvent.SWITCH_VIEW, ApplicationModel.HOME_VIEW_STATE));
+			dispatcher.dispatchEvent(new MessageEvent(MessageEvent.INFO_MESSAGE, "Bookmark updated successfully!", 3));
+			createNewBookmark(true);
+		}
+
+		[EventHandler(event="BookmarkEvent.CREATED", properties="bookmark")]
+		public function bookmark_createdHandler(bookmark:Bookmark):void
+		{
+			dispatcher.dispatchEvent(new SwitchViewEvent(SwitchViewEvent.SWITCH_VIEW, ApplicationModel.HOME_VIEW_STATE));
+			dispatcher.dispatchEvent(new MessageEvent(MessageEvent.INFO_MESSAGE, "Bookmark created successfully!", 3));
+			createNewBookmark(true);
+		}
+
+		[EventHandler(event="BookmarkEvent.DELETED", properties="bookmark")]
+		public function bookmark_deletedHandler(bookmark:Bookmark):void
+		{
+			dispatcher.dispatchEvent(new SwitchViewEvent(SwitchViewEvent.SWITCH_VIEW, ApplicationModel.HOME_VIEW_STATE));
+			dispatcher.dispatchEvent(new MessageEvent(MessageEvent.INFO_MESSAGE, "Bookmark deleted successfully!", 3));
+			createNewBookmark(true);
+		}
+
 		public function btnNewLink_clickHandler():void
 		{
-//			var clipboardUrl:String = Clipboard.generalClipboard.getData(ClipboardFormats.URL_FORMAT) as String;
-			openBookmark(new Bookmark());
+			createNewBookmark();
 		}
 
 		public function btnDelete_clickHandler():void
@@ -87,41 +115,54 @@ package com.detager.models.presentation
 						dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.DELETE, currentBookmark));
 				}
 			);
-
 		}
 
-		public function btnSaveLink_clickHandler():void
+		public function btnSaveLink_clickHandler(validators:Array):void
 		{
-			if (!currentBookmark.isOwner)
+			if (Validator.validateAll(validators).length == 0)
 			{
-				currentBookmark.id = NaN;
-				currentBookmark.entryDate = null;
-				currentBookmark.ownerUsername = currentUser.username;
+				if (!currentBookmark.isOwner)
+				{
+					currentBookmark.id = NaN;
+					currentBookmark.entryDate = null;
+					currentBookmark.ownerUsername = currentUser.username;
+				}
+				
+				var selectedTags:ArrayCollection = new ArrayCollection();
+				for each(var tgp:ObjectProxy in currentTagGroups)
+					for each(var tp:ObjectProxy in tgp.tags)
+						if (tp.selected)
+							selectedTags.addItem(tp.tag);
+						
+				currentBookmark.tags = selectedTags;
+				
+				if (currentBookmark.id)
+					dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.UPDATE, currentBookmark));
+				else
+					dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.CREATE, currentBookmark));
 			}
-			
-			var selectedTags:ArrayCollection = new ArrayCollection();
-			for each(var tgp:ObjectProxy in currentTagGroups)
-				for each(var tp:ObjectProxy in tgp.tags)
-					if (tp.selected)
-						selectedTags.addItem(tp.tag);
-					
-			currentBookmark.tags = selectedTags;
-			
-			if (currentBookmark.id)
-				dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.UPDATE, currentBookmark));
-			else
-				dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.CREATE, currentBookmark));
 		}
 
 		public function txtUrl_changeHandler():void
 		{
-			if (currentBookmark.url)
+			if (currentBookmark.url && currentBookmark.url != "http://")
 				loadTitle();
+		}
+		
+		protected function createNewBookmark(clear:Boolean = false):void
+		{
+			// var clipboardUrl:String = Clipboard.generalClipboard.getData(ClipboardFormats.URL_FORMAT) as String;
+			if (clear)
+			{
+				currentBookmark = null;
+				originalBookmark = null;
+			}
+			openBookmark(new Bookmark("http://"));
 		}
 		
 		protected function setCurrentBookmark(newBookmark:Bookmark):void
 		{
-			originalBookmark = ObjectUtil.copy(newBookmark) as Bookmark;
+			originalBookmark = newBookmark;
 			currentBookmark = ObjectUtil.copy(newBookmark) as Bookmark;
 		
 			currentTagGroups = ObjectUtil.copy(tagGroups) as ArrayCollection;
@@ -137,7 +178,7 @@ package com.detager.models.presentation
 						if (tagIds.indexOf(tp.tag.id) > -1)
 							tp.selected = true;
 			
-			if (currentBookmark.url && !currentBookmark.title)
+			if (currentBookmark.url && currentBookmark.url != "http://" && !currentBookmark.title)
 				loadTitle();
 		}
 		
@@ -154,8 +195,7 @@ package com.detager.models.presentation
 					if (arr && arr.length > 0)
 					{
 						var titleElement:String = String(arr[0]);
-						originalBookmark.title = titleElement.substr(7).substr(0,titleElement.length - 15);
-						currentBookmark.title = originalBookmark.title;
+						currentBookmark.title = titleElement.substr(7).substr(0,titleElement.length - 15);
 						
 						statusBarText = "";
 						enabledTitle = true;

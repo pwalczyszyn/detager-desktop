@@ -41,7 +41,6 @@ package com.detager.commands
 		private function result(event:ResultEvent):void
 		{
 			dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.DELETED, bookmark));
-			dispatcher.dispatchEvent(new MessageEvent(MessageEvent.INFO_MESSAGE, "Bookmark deleted successfully!"));
 		}
 		
 		private function fault(event:FaultEvent):void

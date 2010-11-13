@@ -44,12 +44,11 @@ package com.detager.commands
 		
 		private function result(event:ResultEvent):void
 		{
+			dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.CREATED, bookmark));
+			
 			bookmark.id = event.result as Number;
 			bookmark.ownerUsername = applicationModel.currentUser.username;
 			bookmark.isOwner = true;
-
-			dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.CREATED, bookmark));
-			dispatcher.dispatchEvent(new MessageEvent(MessageEvent.INFO_MESSAGE, "Bookmark created successfully!"));
 		}
 		
 		private function fault(event:FaultEvent):void

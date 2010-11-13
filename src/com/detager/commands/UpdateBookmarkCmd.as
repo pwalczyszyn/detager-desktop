@@ -41,7 +41,6 @@ package com.detager.commands
 		private function result(event:ResultEvent):void
 		{
 			dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.UPDATED, bookmark));
-			dispatcher.dispatchEvent(new MessageEvent(MessageEvent.INFO_MESSAGE, "Bookmark updated successfully!"));
 		}
 		
 		private function fault(event:FaultEvent):void

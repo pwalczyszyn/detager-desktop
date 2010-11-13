@@ -1,10 +1,14 @@
 package com.detager.models.presentation
 {
 	import com.detager.events.BookmarkEvent;
+	import com.detager.events.MessageEvent;
 	import com.detager.events.SettingsEvent;
 	import com.detager.events.SwitchViewEvent;
 	import com.detager.models.ApplicationModel;
 	import com.detager.models.domain.Bookmark;
+	
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	import mx.core.FlexGlobals;
 
@@ -51,13 +55,42 @@ package com.detager.models.presentation
 
 		public function messageView_closeHandler():void
 		{
-			showMessage = false;
+			closeMessage();
 		}
 
+		protected var messageTimer:Timer;
+		
 		[EventHandler(event="MessageEvent.*")]
-		public function messageEvent_openHandler():void
+		public function messageEvent_openHandler(event:MessageEvent):void
 		{
+			if (event.displayTime && event.displayTime > 0)
+			{
+				if (!messageTimer)
+				{
+					messageTimer = new Timer(event.displayTime * 1000, 1);
+					messageTimer.addEventListener(TimerEvent.TIMER, messageTimer_eventHandler);
+				}
+				else if (messageTimer.running)
+					messageTimer.stop();
+				
+				messageTimer.delay = event.displayTime * 1000;
+				messageTimer.reset();
+				messageTimer.start();
+			}
+			
 			showMessage = true;
+		}
+
+		protected function closeMessage():void
+		{
+			if (messageTimer && messageTimer.running)
+				messageTimer.stop();
+			showMessage = false;
+		}
+		
+		protected function messageTimer_eventHandler(event:TimerEvent):void
+		{
+			closeMessage();
 		}
 
 		[EventHandler(event="UserEvent.SIGNEDOUT")]
@@ -89,6 +122,7 @@ package com.detager.models.presentation
 			if (!dispatcher.dispatchEvent(event))
 				return false;
 
+			closeMessage();
 			currentState = toViewState;
 			return true;
 		}

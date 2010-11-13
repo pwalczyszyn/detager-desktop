@@ -23,7 +23,7 @@
 	<s:DataGroup id="dataGroup" left="5" top="5" right="20" bottom="5" clipAndEnableScrolling="true"
 				 itemRenderer="com.detager.components.renderers.BookmarkItemRenderer">
 		<s:layout>
-			<s:VerticalLayout />
+			<s:VerticalLayout variableRowHeight="true" />
 		</s:layout>
 	</s:DataGroup>
 	
