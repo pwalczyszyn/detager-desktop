@@ -30,6 +30,9 @@ package com.detager.models.presentation
 		[Bindable]
 		public var currentTagGroups:ArrayCollection;
 
+		[Bindable]
+		public var selectedTagsLabels:String;
+		
 		[Inject(source="applicationModel.tagGroups")]
 		public var tagGroups:ArrayCollection;
 
@@ -49,12 +52,22 @@ package com.detager.models.presentation
 		
 		public function btnSearch_clickHandler():void
 		{
+			
+			selectedTagsLabels = "";
+			
 			var selectedTagsIds:ArrayCollection = new ArrayCollection();
 			for each(var tgp:ObjectProxy in currentTagGroups)
 				for each(var tp:ObjectProxy in tgp.tags)
 					if (tp.selected)
+					{
 						selectedTagsIds.addItem(tp.tag.id);
+						selectedTagsLabels += tp.tag.name + ", ";
+					}
 
+			// Removing ", " from the end of the string
+			if (selectedTagsLabels.length > 0)
+				selectedTagsLabels = selectedTagsLabels.substring(0, selectedTagsLabels.length - 2);
+			
 			currentState = SEARCH_PROCESS_STATE;
 			
 			dispatcher.dispatchEvent(new BookmarksSearchEvent(BookmarksSearchEvent.SEARCH_BOOKMARKS, null, selectedTagsIds));

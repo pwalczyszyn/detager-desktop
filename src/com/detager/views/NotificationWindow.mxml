@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="340" height="120"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  type="{NativeWindowType.LIGHTWEIGHT}"
 		  creationComplete="window_initializeHandler(event)"
 		  skinClass="com.detager.skins.NotificationWindowSkin"
 		  systemChrome="{NativeWindowSystemChrome.NONE}"
 		  closeEffect="{fadeOut}"
 		  transparent="true"
-		  alwaysInFront="true">
+		  alwaysInFront="true"
+		  width="280" height="130">
 	
 	<fx:Script>
 		<![CDATA[
@@ -23,7 +24,7 @@
 			protected var queue:Vector.<ArrayCollection> = new Vector.<ArrayCollection>();
 			
 			[Bindable]
-			protected var currentBookmark:Bookmark;
+			protected var bookmark:Bookmark;
 			
 			[Bindable]
 			protected var tags:String;
@@ -72,10 +73,10 @@
 				if (queue.length > 0)
 				{
 					newBookmarks = queue.shift();
-					currentBookmark = newBookmarks[0];
+					bookmark = newBookmarks[0];
 					
 					tags = "";
-					for each(var tag:Tag in currentBookmark.tags)
+					for each(var tag:Tag in bookmark.tags)
 						tags += tag.name + ", ";
 
 					timer.reset();
@@ -100,18 +101,44 @@
 	</fx:Script>
 	
 	<fx:Declarations>
-		<s:Fade id="fadeOut" alphaFrom="1.0" alphaTo="0.0" duration="800" />	
+		<s:Fade id="fadeOut" alphaFrom="1.0" alphaTo="0.0" duration="800" />
+		<mx:DateFormatter id="dateFormatter" formatString="EEE DD/MM H:N" />
 	</fx:Declarations>
 	
-	<s:BitmapImage left="10" top="10" smooth="true" source="@Embed(source='/assets/thumbnail-small.png')"/>
 	
-	<s:VGroup left="140" top="15" right="10" fontSize="12" gap="7">
-		<s:RichText id="txtTitle" width="100%" color="#FFFFFF" fontSize="14" text="{currentBookmark.title}"
-					textDecoration="underline" useHandCursor="true" buttonMode="true" />
-		<s:Label text="Desc: {currentBookmark.description != null ? currentBookmark.description : ''}" width="100%" maxDisplayedLines="2" />
-		<s:Label text="Tags: {tags != null ? tags : ''}" left="0" right="5" maxDisplayedLines="3" />
+	<s:VGroup left="10" top="10" right="10" bottom="10" gap="10">
+		
+		<s:HGroup width="100%" verticalAlign="middle">
+			<s:RichText id="txtTitle" text="{bookmark.title}" width="100%" fontSize="12"
+						fontWeight="bold" useHandCursor="true" buttonMode="true" maxDisplayedLines="1" />
+		</s:HGroup>
+		
+		<s:HGroup width="100%">
+			<s:Label text="Desc:" />
+			<s:Label text="{bookmark.description != null ? bookmark.description : ''}" width="100%" maxDisplayedLines="2" />
+		</s:HGroup>
+		
+		<s:HGroup width="100%">
+			<s:Label text="Tags:" />
+			<s:Label text="{tags != null ? tags : ''}" width="100%" maxDisplayedLines="3" />
+		</s:HGroup>
+		
+		<s:HGroup width="100%" gap="3">
+			<s:Label text="by:" />
+			<s:Label text="{bookmark.ownerUsername}," textDecoration="underline" useHandCursor="true" buttonMode="true" />
+			<s:Label text="{dateFormatter.format(bookmark.entryDate)}" />
+			<s:Label text="Others bookmarking #:" includeInLayout="{bookmark.otherTaggers.length > 0}" visible="{bookmark.otherTaggers.length > 0}" />
+			<s:Label text="{bookmark.otherTaggers.length}" includeInLayout="{bookmark.otherTaggers.length > 0}" visible="{bookmark.otherTaggers.length > 0}" />
+		</s:HGroup>
+		
+		<s:Line width="100%">
+			<s:stroke>
+				<s:SolidColorStroke color="#999999" />
+			</s:stroke>
+		</s:Line>
+		
+		<s:RichText text="New bookmarks #: {newBookmarks.length}" />
+		
 	</s:VGroup>
-
-	<s:RichText left="10" bottom="15" fontSize="14" text="New bookmarks #: {newBookmarks.length}" color="#FFFFFF"/>
 	
 </s:Window>

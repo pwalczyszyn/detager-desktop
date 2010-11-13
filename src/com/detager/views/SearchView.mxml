@@ -62,11 +62,14 @@
 	
 	<mx:ProgressBar label="Searching for bookmarks..." includeIn="SEARCH_PROCESS_STATE" verticalCenter="0" horizontalCenter="0" indeterminate="true" />
 	
+	<s:VGroup includeIn="SEARCH_RESULTS_STATE" top="10" right="10" bottom="30" left="10">
+		<s:Label text="Search criteria: {model.selectedTagsLabels}" width="100%" fontWeight="bold" />
+		<components:BookmarksList id="lstRecent" dataProvider="{model.searchResults}"
+								  open="lstRecent_openHandler(event)"
+								  width="100%" height="100%" />
+	</s:VGroup>
+	
 	<s:Button id="btnBack" label="&lt; Back" right="10" bottom="5" 
 			  includeIn="SEARCH_RESULTS_STATE" click="model.btnBack_clickHandler()" />
-	<components:BookmarksList id="lstRecent" dataProvider="{model.searchResults}"
-							  open="lstRecent_openHandler(event)"
-							  includeIn="SEARCH_RESULTS_STATE"
-							  top="10" right="10" bottom="30" left="10"/>
 
 </s:Group>

@@ -16,6 +16,8 @@ package com.detager.services
 		
 		function loadLatest(since:Date):AsyncToken;
 		
+		function loadUserBookmarks():AsyncToken;
+		
 		function searchBookmarks(searchString:String, searchTagsIds:ArrayCollection):AsyncToken;
 	}
 }

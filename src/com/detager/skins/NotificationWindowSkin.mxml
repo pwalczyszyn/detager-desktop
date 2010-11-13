@@ -1,34 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-			 alpha.disabledGroup="0.5" minWidth="380" minHeight="150">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 	
 	<fx:Metadata>
 		[HostComponent("com.detager.views.NotificationWindow")]
 	</fx:Metadata>
-	
-	<fx:Script>
-		/*  Define the skin elements that should not be colorized. 
-		*  For WindowedApplication, border and status bar background are colorized,
-		*  but the content area and status text are not. 
-		*  Exclude the titleBar and scroller because they are SparkSkins and we 
-		*  don't want to colorize them twice.
-		* 
-		* @langversion 3.0
-		* @playerversion Flash 10
-		* @playerversion AIR 1.5
-		* @productversion Flex 4 
-		*/
-		static private const exclusions:Array = ["backgroundRect", "contentGroup"];
-		/**
-		 *  @inheritDoc
-		 * 
-		 * @langversion 3.0
-		 * @playerversion Flash 10
-		 * @playerversion AIR 1.5
-		 * @productversion Flex 4 
-		 */
-		override public function get colorizeExclusions():Array {return exclusions;}
-	</fx:Script>
 	
 	<s:states>
 		<s:State name="normal" />
@@ -41,7 +16,7 @@
 	<!--- Defines the background color of the skin. -->
 	<s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0" >
 		<s:fill>
-			<s:SolidColor color="#333333"/>
+			<s:SolidColor color="#ffffff" alpha="0.7"/>
 		</s:fill>
 		<s:stroke>
 			<s:SolidColorStroke caps="none" color="#999999" joints="miter" miterLimit="4" weight="1"/>

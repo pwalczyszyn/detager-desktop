@@ -37,6 +37,11 @@ package com.detager.services
 			return remoteObject.loadLatest(since);
 		}
 		
+		public function loadUserBookmarks():AsyncToken
+		{
+			return remoteObject.loadUserBookmarks();
+		}
+		
 		public function searchBookmarks(searchString:String, searchTagsIds:ArrayCollection):AsyncToken
 		{
 			return remoteObject.searchBookmarks(searchString, searchTagsIds.source);

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" xmlns:components="com.detager.components.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" xmlns:components="com.detager.components.*"
+		 paddingLeft="10" paddingRight="10"
+		 currentState="{model.currentState}">
 	
 	<fx:Script>
 		<![CDATA[
 			import com.detager.components.renderers.BookmarkItemRenderer;
 			import com.detager.models.domain.Bookmark;
 			import com.detager.models.presentation.HomePM;
+			import com.detager.skins.RefreshButtonSkin;
 			
 			[Inject]
 			[Bindable]
@@ -26,8 +29,25 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<components:BookmarksList id="lstRecent" dataProvider="{model.bookmarks}"
-			open="lstRecent_openHandler(event)"
-			top="10" right="10" bottom="10" left="10"/>
+	<s:states>
+		<s:State name="OTHERS_BOOKMARKS_STATE" />
+		<s:State name="USER_BOOKMARKS_STATE" />
+	</s:states>
 	
-</s:Group>
+	<s:HGroup width="100%" verticalAlign="middle">
+		<s:RadioButton groupName="bookmarksGroups" label="All bookmarks" selected="@{model.othersView}" />
+		<s:RadioButton groupName="bookmarksGroups" label="My bookmarks" />
+		<mx:Spacer width="100%" />
+		<s:Button id="btnRefresh" toolTip="Refresh" skinClass="com.detager.skins.RefreshButtonSkin" 
+				  click="model.btnRefresh_clickHandler()"/>
+	</s:HGroup>
+	
+	<components:BookmarksList id="lstOthersBookmarks" dataProvider="{model.othersBookmarks}"
+			open="lstRecent_openHandler(event)" includeIn="OTHERS_BOOKMARKS_STATE"
+			width="100%" height="100%"/>
+
+	<components:BookmarksList id="lstUserBookmarks" dataProvider="{model.userBookmarks}"
+							  open="lstRecent_openHandler(event)" includeIn="USER_BOOKMARKS_STATE"
+							  width="100%" height="100%"/>
+
+</s:VGroup>

@@ -10,7 +10,11 @@ package com.detager.events
 		public static const SYNC_LATEST:String = "SYNC_LATEST";
 		
 		public static const LATEST_SYNCED:String = "LATEST_SYNCED";
+
+		public static const SYNC_USERS:String = "SYNC_USERS";
 		
+		public static const USERS_SYNCED:String = "USERS_SYNCED";
+
 		public var newBookmarks:ArrayCollection;
 		
 		public var since:Date;

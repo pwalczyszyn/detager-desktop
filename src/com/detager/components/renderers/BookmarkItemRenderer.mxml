@@ -3,8 +3,7 @@
 				xmlns:fx="http://ns.adobe.com/mxml/2009"
 				xmlns:mx="library://ns.adobe.com/flex/mx"
 				autoDrawBackground="false"
-				fontSize="11"
-				width="100%" height="100%">
+				fontSize="11" width="100%" height="100%" xmlns:graphics="assets.graphics.*">
 
 	<fx:Metadata>
 		[Event(name="open",type="flash.events.Event")]
@@ -14,7 +13,6 @@
 		<![CDATA[
 			import com.detager.models.domain.Bookmark;
 			import com.detager.models.domain.Tag;
-			import com.detager.skins.AddButton;
 			
 			[Bindable]
 			private var tags:String;
@@ -57,18 +55,16 @@
 	</fx:Declarations>
 	
 	<s:VGroup left="5" top="2" right="5" bottom="5" gap="7">
-		
-		<s:HGroup width="100%" verticalAlign="middle">
-			<s:RichText id="txtTitle" text="{bookmark.title}" width="100%" fontSize="12"
+
+		<s:Group width="100%">
+			<s:RichText left="0" right="18" id="txtTitle" text="{bookmark.title}" fontSize="12"
 						click="txtTitle_clickHandler(event)" toolTip="Open: {bookmark.url}"
 						fontWeight="bold" useHandCursor="true" buttonMode="true" maxDisplayedLines="1" />
-		
-			<s:Button skinClass="com.detager.skins.AddButton" visible="{!bookmark.isOwner}"
+			<s:Button right="0" skinClass="com.detager.skins.AddButtonSkin" visible="{!bookmark.isOwner}"
 					  click="dispatchEvent(new Event(Event.OPEN, true, true))"/>
-			
-			<s:Button skinClass="com.detager.skins.AddButton" visible="{bookmark.isOwner}"
+			<s:Button right="0" skinClass="com.detager.skins.OpenBookmarkButtonSkin" visible="{bookmark.isOwner}"
 					  click="dispatchEvent(new Event(Event.OPEN, true, true))"/>
-		</s:HGroup>
+		</s:Group>
 		
 		<s:HGroup width="100%">
 			<s:Label text="Desc:" />
@@ -80,12 +76,15 @@
 			<s:Label text="{tags != null ? tags : ''}" width="100%" maxDisplayedLines="3" />
 		</s:HGroup>
 		
-		<s:HGroup width="100%" gap="3">
+		<s:HGroup width="100%" gap="3" verticalAlign="middle">
 			<s:Label text="by:" />
 			<s:Label text="{bookmark.ownerUsername}," textDecoration="underline" useHandCursor="true" buttonMode="true" />
 			<s:Label text="{dateFormatter.format(bookmark.entryDate)}" />
-			<s:Label text="Others bookmarking #:" includeInLayout="{bookmark.otherTaggers.length > 0}" visible="{bookmark.otherTaggers.length > 0}" />
-			<s:Label text="{bookmark.otherTaggers.length}" includeInLayout="{bookmark.otherTaggers.length > 0}" visible="{bookmark.otherTaggers.length > 0}" />
+			<mx:Spacer width="100%" />
+			<s:Group toolTip="Bookmarkers count">
+				<graphics:RoundedBackground width="100%" height="100%" />
+				<s:Label text="{bookmark.otherTaggers.length}" verticalCenter="0" horizontalCenter="0" />
+			</s:Group>
 		</s:HGroup>
 		
 	</s:VGroup>

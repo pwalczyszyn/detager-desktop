@@ -16,18 +16,31 @@ package com.detager.models.presentation
 
 	public class HomePM
 	{
+		
+		public static const OTHERS_BOOKMARKS_STATE:String = "OTHERS_BOOKMARKS_STATE";
+		
+		public static const USER_BOOKMARKS_STATE:String = "USER_BOOKMARKS_STATE";
+		
 		[Dispatcher]
 		public var dispatcher:IEventDispatcher; 
 		
 		[Bindable]
-		public var bookmarks:ArrayCollection = new ArrayCollection();
+		public var othersBookmarks:ArrayCollection = new ArrayCollection();
+
+		[Bindable]
+		public var userBookmarks:ArrayCollection = new ArrayCollection();
+
+		protected var _othersView:Boolean = true;
+		
+		[Bindable]
+		public var currentState:String;
 		
 		[Inject]
 		public var localConfig:LocalConfig;
 		
-		private var timer:Timer;
+		protected var timer:Timer;
 		
-		private var lastSyncTime:Date;
+		protected var lastSyncTime:Date;
 		
 		[PostConstruct]
 		public function postConstruct():void
@@ -38,6 +51,7 @@ package com.detager.models.presentation
 		[EventHandler(event="UserEvent.SIGNEDIN")]
 		public function startSyncTimer():void
 		{
+			// Initiating timer for others bookmarks sync
 			if (!timer)
 			{
 				// Initiate bookmarks loading after signin (actually 1 sec after)
@@ -48,6 +62,9 @@ package com.detager.models.presentation
 				timer.addEventListener(TimerEvent.TIMER, onTimer);
 				timer.start();
 			}
+			
+			// Loading user bookmarks
+			dispatcher.dispatchEvent(new BookmarksSyncEvent(BookmarksSyncEvent.SYNC_USERS, lastSyncTime));
 		}
 		
 		[EventHandler(event="UserEvent.SIGNEDOUT")]
@@ -58,11 +75,17 @@ package com.detager.models.presentation
 		}
 		
 		[EventHandler(event="BookmarksSyncEvent.LATEST_SYNCED", properties="newBookmarks")]
-		public function bookmarksSynced_eventHandler(newBookmarks:ArrayCollection):void
+		public function othersBookmarks_syncedHandler(newBookmarks:ArrayCollection):void
 		{
-			bookmarks.addAllAt(newBookmarks, 0);
+			othersBookmarks.addAllAt(newBookmarks, 0);
 		}
-		
+
+		[EventHandler(event="BookmarksSyncEvent.USERS_SYNCED", properties="newBookmarks")]
+		public function userBookmarks_syncedHandler(newBookmarks:ArrayCollection):void
+		{
+			userBookmarks.addAllAt(newBookmarks, 0);
+		}
+
 		[EventHandler(event="BookmarkEvent.UPDATED")]
 		[EventHandler(event="BookmarkEvent.CREATED")]
 		[EventHandler(event="BookmarkEvent.DELETED")]
@@ -71,22 +94,22 @@ package com.detager.models.presentation
 			switch(event.type)
 			{
 				case BookmarkEvent.UPDATED:
-					for (var i:int = 0; i < bookmarks.length; i++)
+					for (var i:int = 0; i < othersBookmarks.length; i++)
 					{
-						if (Bookmark(bookmarks.getItemAt(i)).id == event.bookmark.id)
+						if (Bookmark(othersBookmarks.getItemAt(i)).id == event.bookmark.id)
 						{
-							bookmarks.removeItemAt(i);
-							bookmarks.addItemAt(event.bookmark, i);
+							othersBookmarks.removeItemAt(i);
+							othersBookmarks.addItemAt(event.bookmark, i);
 							break;
 						}
 					}
 					break;
 				case BookmarkEvent.DELETED:
-					for (var j:int = 0; j < bookmarks.length; j++)
+					for (var j:int = 0; j < othersBookmarks.length; j++)
 					{
-						if (Bookmark(bookmarks.getItemAt(j)).id == event.bookmark.id)
+						if (Bookmark(othersBookmarks.getItemAt(j)).id == event.bookmark.id)
 						{
-							bookmarks.removeItemAt(j);
+							othersBookmarks.removeItemAt(j);
 							break;
 						}
 					}
@@ -97,7 +120,7 @@ package com.detager.models.presentation
 			}
 		}
 		
-		private function onTimer(event:TimerEvent):void
+		protected function onTimer(event:TimerEvent):void
 		{
 			loadLatestBookmarks();
 		}
@@ -106,6 +129,28 @@ package com.detager.models.presentation
 		{
 			if (dispatcher.dispatchEvent(new SwitchViewEvent(SwitchViewEvent.SWITCH_VIEW, ApplicationModel.LINK_EDITOR_VIEW_STATE)))
 				dispatcher.dispatchEvent(new BookmarkEvent(BookmarkEvent.OPEN, bookmark));
+		}
+		
+		public function btnRefresh_clickHandler():void
+		{
+			loadLatestBookmarks();
+			dispatcher.dispatchEvent(new BookmarksSyncEvent(BookmarksSyncEvent.SYNC_USERS, lastSyncTime));
+		}
+
+		[Bindable]
+		public function set othersView(value:Boolean):void
+		{
+			_othersView = value;
+			
+			if (value)
+				currentState = OTHERS_BOOKMARKS_STATE;
+			else
+				currentState = USER_BOOKMARKS_STATE;
+		}
+		
+		public function get othersView():Boolean
+		{
+			return _othersView;
 		}
 		
 		protected function loadLatestBookmarks():void
