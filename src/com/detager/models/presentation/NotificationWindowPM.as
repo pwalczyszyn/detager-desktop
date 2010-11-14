@@ -1,6 +1,7 @@
 package com.detager.models.presentation
 {
 	import com.detager.models.LocalConfig;
+	import com.detager.models.domain.Bookmark;
 	import com.detager.views.NotificationWindow;
 	
 	import flash.desktop.NativeApplication;
@@ -37,22 +38,30 @@ package com.detager.models.presentation
 		{
 			if (newBookmarks.length > 0)
 			{
-				if (localConfig.showNotifications)
+				var previousYoungestEntryDate:Date = localConfig.previousYoungestEntryDate;
+				var youngestEntryDate:Date = Bookmark(newBookmarks.getItemAt(0)).entryDate;
+				
+				if (youngestEntryDate > previousYoungestEntryDate)
 				{
-					if (!idle)
+					if (localConfig.showNotifications)
 					{
-						createWindow();
-						window.addBookmarks(newBookmarks);
+						if (!idle)
+						{
+							createWindow();
+							window.addBookmarks(newBookmarks);
+						}
+						else
+						{
+							idleQueue.push(newBookmarks);
+						}
 					}
-					else
+					else if (localConfig.playNotificationsSound)
 					{
-						idleQueue.push(newBookmarks);
+						sound.play();
 					}
 				}
-				else if (localConfig.playNotificationsSound)
-				{
-					sound.play();
-				}
+				
+				localConfig.previousYoungestEntryDate = youngestEntryDate; 
 			}
 		}
 		

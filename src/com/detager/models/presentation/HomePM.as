@@ -94,29 +94,31 @@ package com.detager.models.presentation
 			switch(event.type)
 			{
 				case BookmarkEvent.UPDATED:
-					for (var i:int = 0; i < othersBookmarks.length; i++)
-					{
-						if (Bookmark(othersBookmarks.getItemAt(i)).id == event.bookmark.id)
-						{
-							othersBookmarks.removeItemAt(i);
-							othersBookmarks.addItemAt(event.bookmark, i);
-							break;
-						}
-					}
+					update(event.bookmark, othersBookmarks);
+					update(event.bookmark, userBookmarks);
 					break;
 				case BookmarkEvent.DELETED:
-					for (var j:int = 0; j < othersBookmarks.length; j++)
-					{
-						if (Bookmark(othersBookmarks.getItemAt(j)).id == event.bookmark.id)
-						{
-							othersBookmarks.removeItemAt(j);
-							break;
-						}
-					}
+					update(event.bookmark, othersBookmarks, true);
+					update(event.bookmark, userBookmarks, true);
 					break;
 				case BookmarkEvent.CREATED:
 					loadLatestBookmarks();
+					userBookmarks.addItemAt(event.bookmark, 0);
 					break;
+			}
+		}
+		
+		protected function update(bookmark:Bookmark, collection:ArrayCollection, removeOnly:Boolean = false):void
+		{
+			for (var i:int = 0; i < collection.length; i++)
+			{
+				if (Bookmark(collection.getItemAt(i)).id == bookmark.id)
+				{
+					collection.removeItemAt(i);
+					if (!removeOnly)
+						collection.addItemAt(bookmark, i);
+					break;
+				}
 			}
 		}
 		

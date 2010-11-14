@@ -9,7 +9,7 @@
 		  closeEffect="{fadeOut}"
 		  transparent="true"
 		  alwaysInFront="true"
-		  width="280" height="130">
+		  width="280" height="150">
 	
 	<fx:Script>
 		<![CDATA[
@@ -127,8 +127,6 @@
 			<s:Label text="by:" />
 			<s:Label text="{bookmark.ownerUsername}," textDecoration="underline" useHandCursor="true" buttonMode="true" />
 			<s:Label text="{dateFormatter.format(bookmark.entryDate)}" />
-			<s:Label text="Others bookmarking #:" includeInLayout="{bookmark.otherTaggers.length > 0}" visible="{bookmark.otherTaggers.length > 0}" />
-			<s:Label text="{bookmark.otherTaggers.length}" includeInLayout="{bookmark.otherTaggers.length > 0}" visible="{bookmark.otherTaggers.length > 0}" />
 		</s:HGroup>
 		
 		<s:Line width="100%">
