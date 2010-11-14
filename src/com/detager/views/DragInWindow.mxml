@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  type="{NativeWindowType.LIGHTWEIGHT}" systemChrome="{NativeWindowSystemChrome.NONE}"
+		  transparent="true" alwaysInFront="true" width="32" height="32" showStatusBar="false"
+		  mouseDown="nativeWindow.startMove();" alpha="0.3"
+		  creationComplete="window_creationCompleteHandler(event)"
+		  nativeDragEnter="dragEnterHandler(event)"
+		  nativeDragDrop="dragDropHandler(event)"
+		  >
+	
+	<fx:Script>
+		<![CDATA[
+			import com.detager.skins.NotificationCloseButtonSkin;
+			
+			import mx.events.FlexEvent;
+			import mx.events.FlexNativeMenuEvent;
+			
+			public var dragEnterHandler:Function;
+			
+			public var dragDropHandler:Function;
+			
+			public var closeHandler:Function;
+			
+			protected function window_creationCompleteHandler(event:FlexEvent):void
+			{
+				nativeWindow.x = Capabilities.screenResolutionX - 150;
+				nativeWindow.y = Capabilities.screenResolutionY - 150;
+				menu.addEventListener(FlexNativeMenuEvent.ITEM_CLICK, closeHandler);
+				menu.setContextMenu(this);
+			}
+
+			private function onItemClick(event:FlexNativeMenuEvent):void
+			{
+				closeHandler();
+			}
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<mx:FlexNativeMenu id="menu" showRoot="false" dataProvider="{menuData}" labelField="@label" />
+		<fx:XML id="menuData" format="e4x">
+			<root>
+				<menuitem label="Close"/>
+			</root>
+		</fx:XML>
+	</fx:Declarations>
+	
+	<s:Rect width="100%" height="100%" radiusX="5" radiusY="5">
+		<s:fill>
+			<s:SolidColor color="#999999" alpha="0.5" />
+		</s:fill>
+	</s:Rect>
+	
+	<mx:Image source="/assets/icons/icon-32.png" verticalCenter="0" horizontalCenter="0" alpha="0.5" />
+	
+</s:Window>
