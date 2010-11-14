@@ -5,6 +5,7 @@
 	<fx:Script>
 		<![CDATA[
 			import com.detager.models.presentation.BookmarkEditorPM;
+			import com.detager.models.presentation.DragInWindowPM;
 			import com.detager.models.presentation.HomePM;
 			import com.detager.models.presentation.MainPM;
 			import com.detager.models.presentation.SearchPM;
@@ -47,6 +48,8 @@
 		<swiz:Prototype type="{SearchPM}" singleton="true" />
 		
 		<swiz:Prototype type="{SettingsPM}" singleton="true" />
+		
+		<presentation:DragInWindowPM id="dragInWindowPM" />
 		
 		<storage:EncryptedLocalStorageBean id="encryptedLocalStorage" />
 		<storage:SharedObjectBean id="localStorage" name="LOCAL_STORAGE" />

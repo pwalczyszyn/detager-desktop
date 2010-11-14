@@ -50,7 +50,8 @@ package com.detager.models
 				{
 					showNotifications : true, 
 					playNotificationsSound : true, 
-					syncInterval : 600000	
+					syncInterval : 600000,
+					showDragInWindow : true
 				});
 		}
 		

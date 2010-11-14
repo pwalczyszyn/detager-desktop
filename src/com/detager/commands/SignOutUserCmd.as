@@ -8,6 +8,10 @@ package com.detager.commands
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
+	import mx.rpc.remoting.RemoteObject;
+	
 	import org.swizframework.storage.IEncryptedLocalStorageBean;
 	import org.swizframework.utils.commands.IEventAwareCommand;
 	import org.swizframework.utils.services.IServiceHelper;
@@ -19,7 +23,10 @@ package com.detager.commands
 		
 		[Inject]
 		public var userService:IUserService;
-		
+
+		[Inject(source="usersService")]
+		public var remoteObject:RemoteObject;
+
 		[Inject]
 		public var serviceHelper:IServiceHelper;
 
@@ -38,14 +45,24 @@ package com.detager.commands
 		
 		public function execute():void
 		{
-			userService.signOut();
+			serviceHelper.executeServiceCall(userService.signOut(), result, fault);
+		}
+		
+		private function result(event:ResultEvent):void
+		{
+			remoteObject.logout();
+			remoteObject.setCredentials(null, null);
 			
 			applicationModel.currentUser = null;
 			encryptedLocalStorage.setObject("rememberMeUser", null);
 			
-			// TODO implement signingout logic on the server
 			dispatcher.dispatchEvent(new UserEvent(UserEvent.SIGNEDOUT, user));
 		}
 		
+		private function fault(event:FaultEvent):void
+		{
+			trace("error loging out:", event.fault.faultDetail);
+		}
+
 	}
 }

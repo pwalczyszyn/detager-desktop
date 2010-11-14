@@ -16,7 +16,7 @@
 	<!--- Defines the background color of the skin. -->
 	<s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0" >
 		<s:fill>
-			<s:SolidColor color="#ffffff" alpha="0.7"/>
+			<s:SolidColor color="#ffffff" alpha="1"/>
 		</s:fill>
 		<s:stroke>
 			<s:SolidColorStroke caps="none" color="#999999" joints="miter" miterLimit="4" weight="1"/>

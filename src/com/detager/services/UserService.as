@@ -8,17 +8,16 @@ package com.detager.services
 		[Inject(source="usersService")]
 		public var remoteObject:RemoteObject;
 		
-
-		public function signOut():void
+		public function signOut():AsyncToken
 		{
-			remoteObject.logout();
-			
+//			remoteObject.logout();
+			return remoteObject.signOut();
 		}
 
 		public function signIn(username:String, password:String):AsyncToken
 		{
 			remoteObject.setCredentials(username, password);
-			return remoteObject.login();
+			return remoteObject.signIn();
 		}
 	}
 }

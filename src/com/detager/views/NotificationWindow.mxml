@@ -139,4 +139,6 @@
 		
 	</s:VGroup>
 	
+	<mx:Image source="/assets/icons/icon-16.png" bottom="5" right="5" />
+	
 </s:Window>

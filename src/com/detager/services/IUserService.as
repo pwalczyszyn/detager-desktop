@@ -6,6 +6,6 @@ package com.detager.services
 	{
 		function signIn(username:String,password:String):AsyncToken;
 		
-		function signOut():void;
+		function signOut():AsyncToken;
 	}
 }

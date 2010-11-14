@@ -59,7 +59,7 @@ package com.detager.models.presentation
 				
 				// start timer
 				timer = new Timer(localConfig.syncInterval);
-				timer.addEventListener(TimerEvent.TIMER, onTimer);
+				timer.addEventListener(TimerEvent.TIMER, loadLatestBookmarks);
 				timer.start();
 			}
 			
@@ -71,7 +71,15 @@ package com.detager.models.presentation
 		public function stopSyncTimer():void
 		{
 			timer.stop();
+			timer.removeEventListener(TimerEvent.TIMER, loadLatestBookmarks);
 			timer = null;
+			
+			lastSyncTime = null;
+			
+			othersBookmarks.removeAll();
+			userBookmarks.removeAll();
+			
+			currentState = OTHERS_BOOKMARKS_STATE;
 		}
 		
 		[EventHandler(event="BookmarksSyncEvent.LATEST_SYNCED", properties="newBookmarks")]
@@ -122,9 +130,10 @@ package com.detager.models.presentation
 			}
 		}
 		
-		protected function onTimer(event:TimerEvent):void
+		protected function loadLatestBookmarks(event:TimerEvent = null):void
 		{
-			loadLatestBookmarks();
+			dispatcher.dispatchEvent(new BookmarksSyncEvent(BookmarksSyncEvent.SYNC_LATEST, lastSyncTime));
+			lastSyncTime = new Date();
 		}
 
 		public function openBookmark(bookmark:Bookmark):void
@@ -154,12 +163,5 @@ package com.detager.models.presentation
 		{
 			return _othersView;
 		}
-		
-		protected function loadLatestBookmarks():void
-		{
-			dispatcher.dispatchEvent(new BookmarksSyncEvent(BookmarksSyncEvent.SYNC_LATEST, lastSyncTime));
-			lastSyncTime = new Date();
-		}
-		
 	}
 }
