@@ -18,7 +18,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<mx:Form verticalCenter="0" horizontalCenter="0">
+	<mx:Form top="50" horizontalCenter="0">
 		<mx:FormItem>
 			<s:CheckBox label="Open at Login" selected="@{model.startAtLogin}" />
 		</mx:FormItem>
