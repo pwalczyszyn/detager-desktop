@@ -3,7 +3,9 @@
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  type="{NativeWindowType.LIGHTWEIGHT}" systemChrome="{NativeWindowSystemChrome.NONE}"
-		  transparent="true" alwaysInFront="true" width="32" height="32" showStatusBar="false"
+		  transparent="true" alwaysInFront="true"  showStatusBar="false"
+		  resizable="false" minimizable="false"
+		  width="32" height="32" maxWidth="32" maxHeight="32"
 		  mouseDown="nativeWindow.startMove();" alpha="0.3"
 		  creationComplete="window_creationCompleteHandler(event)"
 		  nativeDragEnter="dragEnterHandler(event)"
@@ -50,10 +52,10 @@
 	
 	<s:Rect width="100%" height="100%" radiusX="5" radiusY="5">
 		<s:fill>
-			<s:SolidColor color="#999999" alpha="0.5" />
+			<s:SolidColor color="#999999" />
 		</s:fill>
 	</s:Rect>
 	
-	<mx:Image source="/assets/icons/icon-32.png" verticalCenter="0" horizontalCenter="0" alpha="0.5" />
+	<mx:Image source="/assets/icons/icon-32.png" verticalCenter="0" horizontalCenter="0" />
 	
 </s:Window>
