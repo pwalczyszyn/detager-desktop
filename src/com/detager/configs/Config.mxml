@@ -21,10 +21,9 @@
 		<controllers:UpdateController id="updateController" />
 		
 		<models:ApplicationModel id="applicationModel" />
-		<controllers:StartupController id="startupController" />
 		<controllers:DragController id="dragController" />		
 		
-		<services:AppDataServiceMock id="appDataService" />
+		<services:AppDataService id="appDataService" />
 		<services:BookmarkService id="bookmarkService" />
 		
 		<services:UserService id="userService" />

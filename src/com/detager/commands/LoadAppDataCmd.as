@@ -1,5 +1,6 @@
 package com.detager.commands
 {
+	import com.detager.events.MessageEvent;
 	import com.detager.events.SwitchViewEvent;
 	import com.detager.models.ApplicationModel;
 	import com.detager.models.domain.Tag;
@@ -9,7 +10,6 @@ package com.detager.commands
 	import flash.events.IEventDispatcher;
 	
 	import mx.collections.ArrayCollection;
-	import mx.controls.Alert;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	import mx.utils.ObjectProxy;
@@ -57,7 +57,8 @@ package com.detager.commands
 		
 		private function fault(event:FaultEvent):void
 		{
-			Alert.show("Error loading application data: " + event.fault.faultString);
+			dispatcher.dispatchEvent(new MessageEvent(MessageEvent.ERROR_MESSAGE, "Error loading application data!"));
+			trace("Error loading application data:", event.fault.faultDetail);
 		}
 
 	}

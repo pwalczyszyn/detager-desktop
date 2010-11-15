@@ -14,13 +14,14 @@
 			import com.detager.configs.LocalServiceConfig;
 			import com.detager.configs.RemoteServiceConfig;
 			
+			import mx.controls.Alert;
 			import mx.events.FlexEvent;
 
 			protected function windowedApplication_creationCompleteHandler(event:FlexEvent):void
 			{
 				nativeWindow.x = (Capabilities.screenResolutionX - width) / 2;
 				nativeWindow.y = (Capabilities.screenResolutionY - height) / 2;
-				
+
 				nativeWindow.addEventListener(Event.CLOSE, function(event:Event):void
 				{
 					nativeApplication.exit();

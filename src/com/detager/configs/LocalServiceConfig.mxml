@@ -9,6 +9,8 @@
 			<s:AMFChannel url="http://detager.com.localhost/services/amf" />
 		</s:ChannelSet>
 		
+		<s:RemoteObject id="appDataRemoteObject" destination="zend" source="AppDataService" channelSet="{channels}" />
+		
 		<s:RemoteObject id="usersService" destination="zend" source="UsersService" channelSet="{channels}" />
 		
 		<s:RemoteObject id="bookmarksService" destination="zend" source="BookmarksService" channelSet="{channels}" />
