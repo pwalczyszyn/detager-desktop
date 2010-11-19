@@ -4,7 +4,8 @@
 					   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:swiz="http://swiz.swizframework.org" xmlns:configs="com.detager.configs.*"
 					   creationComplete="windowedApplication_creationCompleteHandler(event)" xmlns:views="com.detager.views.*"
 					   showStatusBar="false"
-					   preloader="com.detager.components.Preloader">
+					   preloader="com.detager.components.Preloader"
+					   >
 
 	<fx:Style source="Detager.css"/>
 	
