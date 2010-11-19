@@ -25,7 +25,7 @@
 	<name>Detager Desktop</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-	<version>1.0 RC2</version>
+	<version>1.0 RC3</version>
 
 	<!-- Description, displayed in the AIR application installer.
 	     May have multiple values for each language. See samples or xsd schema file. Optional. -->
@@ -56,10 +56,10 @@
 		<!-- <visible></visible> -->
 
 		<!-- Whether the user can minimize the window. Optional. Default true. -->
-		<!-- <minimizable></minimizable> -->
+		<minimizable>true</minimizable>
 
 		<!-- Whether the user can maximize the window. Optional. Default true. -->
-		<maximizable>false</maximizable>
+		<maximizable>true</maximizable>
 
 		<!-- Whether the user can resize the window. Optional. Default true. -->
 		<resizable>false</resizable>
@@ -71,16 +71,16 @@
 		<height>500</height>
 
 		<!-- The window's initial x position. Optional. -->
-		<x>10</x>
+		<!--<x></x>-->
 
 		<!-- The window's initial y position. Optional. -->
-		<y>10</y>
+		<!--<y></y>-->
 
 		<!-- The window's minimum size, specified as a width/height pair in pixels, such as "400 200". Optional. -->
-		<!-- <minSize></minSize> -->
+		<minSize>280 500</minSize>
 
 		<!-- The window's initial maximum size, specified as a width/height pair in pixels, such as "1600 1200". Optional. -->
-		<!-- <maxSize></maxSize> -->
+		<maxSize>280 500</maxSize> 
 	</initialWindow>
 
     <!-- We recommend omitting the supportedProfiles element, -->

@@ -75,6 +75,7 @@ package com.detager.models.presentation
 			dispatcher.dispatchEvent(new LinkDragEvent(LinkDragEvent.LINK_DRAGGED, url));
 
 			var mainWindow:NativeWindow = NativeApplication.nativeApplication.openedWindows[0];
+			mainWindow.restore();
 			mainWindow.alwaysInFront = true;
 			mainWindow.orderToFront();
 			mainWindow.alwaysInFront = false;

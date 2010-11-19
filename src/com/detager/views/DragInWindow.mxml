@@ -6,11 +6,12 @@
 		  transparent="true" alwaysInFront="true"  showStatusBar="false"
 		  resizable="false" minimizable="false"
 		  width="32" height="32" maxWidth="32" maxHeight="32"
-		  mouseDown="nativeWindow.startMove();" alpha="0.3"
+		  mouseDown="nativeWindow.startMove();"
 		  creationComplete="window_creationCompleteHandler(event)"
 		  nativeDragEnter="dragEnterHandler(event)"
 		  nativeDragDrop="dragDropHandler(event)"
-		  >
+		  skinClass="com.detager.skins.DragInWindowSkin"
+		  doubleClick="window_doubleClickHandler(event)" doubleClickEnabled="true">
 	
 	<fx:Script>
 		<![CDATA[
@@ -18,6 +19,8 @@
 			
 			import mx.events.FlexEvent;
 			import mx.events.FlexNativeMenuEvent;
+			
+			import spark.components.WindowedApplication;
 			
 			public var dragEnterHandler:Function;
 			
@@ -38,6 +41,15 @@
 				closeHandler();
 			}
 
+			protected function window_doubleClickHandler(event:MouseEvent):void
+			{
+				var mainWindow:NativeWindow = NativeApplication.nativeApplication.openedWindows[0];
+				mainWindow.restore();
+				mainWindow.alwaysInFront = true;
+				mainWindow.orderToFront();
+				mainWindow.alwaysInFront = false;
+			}
+
 		]]>
 	</fx:Script>
 	
@@ -49,13 +61,5 @@
 			</root>
 		</fx:XML>
 	</fx:Declarations>
-	
-	<s:Rect width="100%" height="100%" radiusX="5" radiusY="5">
-		<s:fill>
-			<s:SolidColor color="#999999" />
-		</s:fill>
-	</s:Rect>
-	
-	<mx:Image source="/assets/icons/icon-32.png" verticalCenter="0" horizontalCenter="0" />
 	
 </s:Window>
