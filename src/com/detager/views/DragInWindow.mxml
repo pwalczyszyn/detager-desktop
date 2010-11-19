@@ -10,7 +10,7 @@
 		  creationComplete="window_creationCompleteHandler(event)"
 		  nativeDragEnter="dragEnterHandler(event)"
 		  nativeDragDrop="dragDropHandler(event)"
-		  >
+		  doubleClick="window_doubleClickHandler(event)" doubleClickEnabled="true">
 	
 	<fx:Script>
 		<![CDATA[
@@ -18,6 +18,8 @@
 			
 			import mx.events.FlexEvent;
 			import mx.events.FlexNativeMenuEvent;
+			
+			import spark.components.WindowedApplication;
 			
 			public var dragEnterHandler:Function;
 			
@@ -36,6 +38,15 @@
 			private function onItemClick(event:FlexNativeMenuEvent):void
 			{
 				closeHandler();
+			}
+
+			protected function window_doubleClickHandler(event:MouseEvent):void
+			{
+				var mainWindow:NativeWindow = NativeApplication.nativeApplication.openedWindows[0];
+				mainWindow.restore();
+				mainWindow.alwaysInFront = true;
+				mainWindow.orderToFront();
+				mainWindow.alwaysInFront = false;
 			}
 
 		]]>
