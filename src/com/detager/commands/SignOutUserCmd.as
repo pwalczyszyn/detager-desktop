@@ -55,7 +55,7 @@ package com.detager.commands
 			
 			applicationModel.currentUser = null;
 			encryptedLocalStorage.setObject("rememberMeUser", null);
-			
+		
 			dispatcher.dispatchEvent(new UserEvent(UserEvent.SIGNEDOUT, user));
 		}
 		

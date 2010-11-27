@@ -31,6 +31,9 @@
 		<mx:FormItem>
 			<s:CheckBox label="Show drag link window" selected="@{model.currentSettings.showDragInWindow}" />
 		</mx:FormItem>
+		<mx:FormItem label="Twitter:">
+			<s:Button label="configure..." click="model.btnTwitter_clickHandler()" />
+		</mx:FormItem>
 	</mx:Form>
 	
 	<s:Button id="btnSignOut" label="Sign Out" left="10" bottom="5" click="model.btnSignOut_clickHandler()" />

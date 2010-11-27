@@ -10,7 +10,6 @@ package com.detager.services
 		
 		public function signOut():AsyncToken
 		{
-//			remoteObject.logout();
 			return remoteObject.signOut();
 		}
 
@@ -18,6 +17,11 @@ package com.detager.services
 		{
 			remoteObject.setCredentials(username, password);
 			return remoteObject.signIn();
+		}
+		
+		public function activateTwitter(queryData:String):AsyncToken
+		{
+			return remoteObject.activateTwitter(queryData);
 		}
 	}
 }

@@ -5,8 +5,10 @@
 	
 	<fx:Declarations>
 		
+		<fx:String id="servicesHost">http://detager.com</fx:String>
+		
 		<s:ChannelSet id="channels">
-			<s:AMFChannel url="http://detager.com/services/amf" />
+			<s:AMFChannel url="{servicesHost}/services/amf" />
 		</s:ChannelSet>
 		
 		<s:RemoteObject id="appDataRemoteObject" destination="zend" source="AppDataService" channelSet="{channels}" />

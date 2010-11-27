@@ -7,5 +7,7 @@ package com.detager.services
 		function signIn(username:String,password:String):AsyncToken;
 		
 		function signOut():AsyncToken;
+		
+		function activateTwitter(queryData:String):AsyncToken;
 	}
 }
